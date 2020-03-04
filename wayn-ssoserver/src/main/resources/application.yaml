@@ -1,0 +1,45 @@
+server:
+  port: 82
+  servlet:
+    context-path: /ssoserver
+    session:
+      timeout: 1800
+
+
+spring:
+  # 服务模块
+  devtools:
+    restart:
+      # 热部署开关
+      enabled: true
+  # 模板引擎
+  thymeleaf:
+    mode: HTML
+    encoding: utf-8
+    # 禁用缓存
+    cache: false
+  # redis配置
+  redis:
+    host: 192.168.233.130
+    port: 6379
+    timeout: 5000
+    password:
+    databaseIndex: 2
+    expire: 1800
+    maxTotal: 50000
+    jedis:
+      pool:
+        max-active: 50
+        max-idle: 100
+        min-idle: 10
+        max-wait: 2000
+
+# 日志配置
+logging:
+  level:
+    com.wayn: debug
+    org.springframework: info
+
+# sso各系统路径
+sso:
+  waynAdminUrl: http://127.0.0.1/wayn

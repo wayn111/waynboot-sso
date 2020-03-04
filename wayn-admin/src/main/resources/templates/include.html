@@ -1,0 +1,43 @@
+<!-- 通用CSS -->
+<head th:fragment=header(title)>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title th:text="${title}"></title>
+    <link rel="shortcut icon" th:href="@{/favicon.ico}">
+    <link th:href="@{/plugin/bootstrap-3.3.7-dist/css/bootstrap.min.css?v=3.3.7}" rel="stylesheet"/>
+    <link th:href="@{/plugin/bootstrap-table/bootstrap-table.min.css}" rel="stylesheet"/>
+    <link th:href="@{/plugin/layer/skin/layer.css}" rel="stylesheet"/>
+    <link th:href="@{/plugin/jquery-layout/layout-default-latest.css?v=1.4}"
+          rel="stylesheet">
+    <link th:href="@{/plugin/bootstrap-switch/css/bootstrap3/bootstrap-switch.css}"
+          rel="stylesheet">
+    <link th:href="@{/plugin/select2-4.0.7/dist/css/select2.min.css}"
+          rel="stylesheet">
+    <link th:href="@{/plugin/select2-4.0.7/dist/css/select2-bootstrap.min.css}"
+          rel="stylesheet">
+    <link th:href="@{/plugin/iCheck/custom.css}" rel="stylesheet">
+    <link th:href="@{/css/font-awesome.css?v=4.7.0}" rel="stylesheet"/>
+    <link th:href="@{/css/animate.css}" rel="stylesheet"/>
+    <link th:href="@{/css/style.css?v=4.0}" rel="stylesheet"/>
+</head>
+
+<!-- 通用JS -->
+<div th:fragment="footer">
+    <script th:src="@{/plugin/jquery/jquery-2.2.4.js}"></script>
+    <script th:src="@{/plugin/validate/jquery.validate.min.js?v=1.13}"></script>
+    <script th:src="@{/plugin/validate/messages_zh.min.js}"></script>
+    <script th:src="@{/plugin/jquery-layout/jquery.layout-latest.js?v=1.4}"></script>
+    <script th:src="@{/plugin/bootstrap-3.3.7-dist/js/bootstrap.min.js?v=3.3.7}"></script>
+    <script th:src="@{/plugin/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js}"></script>
+    <script th:src="@{/plugin/bootstrap-table/bootstrap-table.js}"></script>
+    <script th:src="@{/plugin/bootstrap-table/locale/bootstrap-table-zh-CN.min.js}"></script>
+    <script th:src="@{/plugin/bootstrap-switch/js/bootstrap-switch.js}"></script>
+    <script th:src="@{/plugin/layer/layer.min.js}"></script>
+    <script th:src="@{/plugin/layDate-v5.0.9/laydate/laydate.js}"></script>
+    <script th:src="@{/plugin/select2-4.0.7/dist/js/select2.min.js}"></script>
+    <script th:src="@{/plugin/select2-4.0.7/dist/js/i18n/zh-CN.js}"></script>
+    <script th:src="@{/plugin/iCheck/icheck.min.js}"></script>
+    <script th:src="@{/js/common/common-ui.js}"></script>
+</div>

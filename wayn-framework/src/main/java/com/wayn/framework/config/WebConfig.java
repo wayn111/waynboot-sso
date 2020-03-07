@@ -1,14 +1,14 @@
 package com.wayn.framework.config;
 
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Collections;
-import java.util.EventListener;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
@@ -25,6 +25,11 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
     @Bean
+    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+        return new RestTemplate(new HttpsClientRequestFactory());
+    }
+
+    /*@Bean
     public ServletListenerRegistrationBean<EventListener> getDemoListener() {
         ServletListenerRegistrationBean<EventListener> registrationBean
                 = new ServletListenerRegistrationBean<>();
@@ -35,5 +40,5 @@ public class WebConfig implements WebMvcConfigurer {
 
     public MyRequestContextListener myRequestContextListener() {
         return new MyRequestContextListener();
-    }
+    }*/
 }

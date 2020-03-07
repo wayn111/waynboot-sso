@@ -43,7 +43,7 @@ mybatis-plus:
 # 配置
 shiro:
   loginUrl: http://127.0.0.1:82/ssoserver/login?backUrl=http://127.0.0.1:81/gencode/login
-  successUrl: /home
+  successUrl: /gen
   unauthorizedUrl: /error/unauth
   retryCount: 5
   algorithmName: MD5

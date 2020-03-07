@@ -120,7 +120,7 @@ public class ShiroConfig {
     public TokenLoginFilter tokenLoginFilter() {
         TokenLoginFilter tokenValidateFilter = new TokenLoginFilter();
         tokenValidateFilter.setFailureUrl(loginUrl);
-        tokenValidateFilter.setSuccessUrl("/home");
+        tokenValidateFilter.setSuccessUrl(successUrl);
         return tokenValidateFilter;
     }
 

@@ -217,5 +217,6 @@
 		<module>wayn-ssocore</module>
 		<module>wayn-ssoserver</module>
         <module>wayn-gencode</module>
+        <module>wayn-others</module>
     </modules>
 </project>

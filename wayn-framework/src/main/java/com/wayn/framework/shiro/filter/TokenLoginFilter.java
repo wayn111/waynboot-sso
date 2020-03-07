@@ -33,6 +33,15 @@ public class TokenLoginFilter extends AuthenticatingFilter {
 
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
+        Subject subject = getSubject(request, response);
+        if (subject.isAuthenticated() || subject.isRemembered()) {
+            try {
+                issueSuccessRedirect(request, response);
+                return false;
+            } catch (Exception e) {
+                log.error("Cannot redirect to the default success url", e);
+            }
+        }
         return executeLogin(request, response);
     }
 

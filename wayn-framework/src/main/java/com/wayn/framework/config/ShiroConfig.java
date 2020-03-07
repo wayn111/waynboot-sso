@@ -1,5 +1,6 @@
 package com.wayn.framework.config;
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.caucho.hessian.client.HessianProxyFactory;
 import com.wayn.common.service.DeptService;
 import com.wayn.framework.redis.RedisOpts;
@@ -235,6 +236,16 @@ public class ShiroConfig {
         sessionManager.setSessionDAO(sessionDAO());
         sessionManager.setSessionFactory(sessionFactory());
         return sessionManager;
+    }
+
+    /**
+     * ShiroDialect，为了在thymeleaf里使用shiro的标签的bean
+     *
+     * @return
+     */
+    @Bean
+    public ShiroDialect shiroDialect() {
+        return new ShiroDialect();
     }
 
 }

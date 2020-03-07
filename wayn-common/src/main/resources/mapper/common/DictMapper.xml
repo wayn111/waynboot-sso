@@ -6,7 +6,7 @@
         <id column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="value" property="value"/>
-        <result column="dictState" property="dictState"/>
+        <result column="dictStatus" property="dictStatus"/>
         <result column="type" property="type"/>
         <result column="sort" property="sort"/>
         <result column="parentId" property="parentId"/>

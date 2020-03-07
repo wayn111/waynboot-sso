@@ -127,7 +127,7 @@ public class DictServiceImpl extends ServiceImpl<DictDao, Dict> implements DictS
         wrapper.eq("type", 2)
                 .eq("delFlag", "0")
                 .eq("dictType", dictType)
-                .eq("dictState", 1);
+                .eq("dictStatus", 1);
         List<Dict> dictList = dictDao.selectList(wrapper);
         List<JSONObject> objectList = convert2select(dictList);
         return objectList;

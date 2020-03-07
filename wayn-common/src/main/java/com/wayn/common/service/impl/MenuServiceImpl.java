@@ -107,7 +107,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements MenuS
     @Override
     public Tree<Menu> getTree() {
         List<Tree<Menu>> trees = new ArrayList<>();
-        List<Menu> menus = menuDao.selectList(new QueryWrapper<>());
+        List<Menu> menus = menuDao.selectList(new QueryWrapper<Menu>().ne("type", 3));
         for (Menu menu : menus) {
             Tree<Menu> tree = new Tree<>();
             tree.setId(menu.getId().toString());
@@ -182,7 +182,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements MenuS
         QueryWrapper<Menu> wrapper = new QueryWrapper<>();
         wrapper.like("menuName", menu.getMenuName());
         wrapper.in(StringUtils.isNotEmpty(menu.getType()), "type", Arrays.asList(menu.getType().split(",")));
-        wrapper.orderByDesc("sort");
+        wrapper.orderByAsc("sort");
         List<Menu> menus = menuDao.selectList(wrapper);
         List<Menu> menusList = new ArrayList<>(menus);
         if (StringUtils.isNotEmpty(menu.getMenuName())) {

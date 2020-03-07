@@ -1,6 +1,6 @@
 package com.wayn.framework.util;
 
-import com.wayn.framework.shiro.realm.MyRealm;
+import com.wayn.framework.shiro.realm.SsoRealm;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.mgt.RealmSecurityManager;
 
@@ -13,7 +13,7 @@ public class ShiroCacheUtil {
 
     public static void clearCachedAuthorizationInfo() {
         RealmSecurityManager rsm = (RealmSecurityManager) SecurityUtils.getSecurityManager();
-        MyRealm shiroRealm = (MyRealm) rsm.getRealms().iterator().next();
+        SsoRealm shiroRealm = (SsoRealm) rsm.getRealms().iterator().next();
         shiroRealm.clearCachedAuthorizationInfo();
 
 		/*Subject subject = SecurityUtils.getSubject();

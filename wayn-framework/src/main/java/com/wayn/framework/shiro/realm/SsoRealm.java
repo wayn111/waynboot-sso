@@ -12,6 +12,7 @@ import com.wayn.ssocore.entity.SsoUser;
 import com.wayn.ssocore.service.AuthcationRpcService;
 import lombok.SneakyThrows;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -109,5 +110,10 @@ public class SsoRealm extends AuthorizingRealm {
             return info;
         }
         return null;
+    }
+
+    public void clearCachedAuthorizationInfo() {
+        doClearCache(SecurityUtils.getSubject().getPrincipals());
+        clearCachedAuthorizationInfo(SecurityUtils.getSubject().getPrincipals());
     }
 }

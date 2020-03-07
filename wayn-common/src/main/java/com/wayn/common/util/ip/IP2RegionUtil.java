@@ -15,9 +15,8 @@ public class IP2RegionUtil {
     public static String getCityInfo(String ip) {
         //db
 //        String dbPath = IPUtil.class.getResource("ip2region.db").getPath();
-        String dbPath = IP2RegionUtil.class.getClassLoader().getResource("/ip2region.db").getPath();
+        String dbPath = IP2RegionUtil.class.getClassLoader().getResource("ip2region.db").getPath();
         File file = new File(dbPath);
-
         if (file.exists() == false) {
             System.out.println("Error: Invalid ip2region.db file");
         }
@@ -61,7 +60,6 @@ public class IP2RegionUtil {
     }
 
     public static void main(String[] args) throws Exception {
-        System.err.println(getCityInfo("220.248.12.158"));
+        System.out.println(getCityInfo("220.248.12.158"));
     }
-
 }

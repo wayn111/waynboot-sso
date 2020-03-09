@@ -31,7 +31,9 @@ public class TokenManager {
     }
 
     public SsoUser getUserByToken(String token) throws Exception {
-        return JsonUtil.unmarshal(redisOpts.get(token), SsoUser.class);
+        String value = redisOpts.get(token);
+        if (StringUtils.isEmpty(value)) return null;
+        return JsonUtil.unmarshal(value, SsoUser.class);
     }
 
     public String generateToken() {

@@ -1,17 +1,17 @@
 $(function () {
     getArticle("");
-    $(".prev-article span").click(function () {
+    $(".prev-article button").click(function () {
         location.href = "#";
         var date = $(this).attr("name");
         getArticle(date);
     });
-    $(".next-article span").click(function () {
+    $(".next-article button").click(function () {
         location.href = "#";
         var date = $(this).attr("name");
         var today = $("#today").text();
         if (date > today) {
             // $MB.n_success("明天还未到来，请耐心等待吧~");
-            alert(r.msg)
+            alert("明天还未到来，请耐心等待吧~")
             return;
         }
         getArticle(date);
@@ -30,8 +30,8 @@ function getArticle(date) {
                 '&nbsp;&nbsp;字数 ' + data.data.wc + '</span>';
             $(".card-subtitle").html("").append(html);
             $(".card-block").html("").append(data.data.content);
-            $(".prev-article span").attr("name", data.data.date.prev);
-            $(".next-article span").attr("name", data.data.date.next);
+            $(".prev-article button").attr("name", data.data.date.prev);
+            $(".next-article button").attr("name", data.data.date.next);
             if (date === "") $("#today").text(curr);
         } else {
             // $MB.n_warning(r.msg);

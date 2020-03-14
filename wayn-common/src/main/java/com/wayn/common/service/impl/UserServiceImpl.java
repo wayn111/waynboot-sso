@@ -46,7 +46,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
 
     @Override
     public Page<User> listPage(Page<User> page, User user) {
-        QueryWrapper<User> wrapper = ParameterUtil.get();
+        QueryWrapper wrapper = ParameterUtil.get();
         wrapper.like("userName", user.getUserName());
         wrapper.like("phone", user.getPhone());
         wrapper.like("email", user.getEmail());

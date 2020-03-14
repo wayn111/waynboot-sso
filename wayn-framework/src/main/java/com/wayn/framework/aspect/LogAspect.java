@@ -3,7 +3,7 @@ package com.wayn.framework.aspect;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.wayn.common.annotation.Log;
-import com.wayn.common.constant.Constant;
+import com.wayn.common.constant.Constants;
 import com.wayn.common.domain.OperLog;
 import com.wayn.common.domain.User;
 import com.wayn.common.util.shiro.util.ShiroUtil;
@@ -100,7 +100,7 @@ public class LogAspect {
             String methodName = method.getName();
             operLog.setMethod(className + "." + methodName + "()");
             operLog.setIp(IP2RegionUtil.getCityInfo(ShiroUtil.getIP()));
-            operLog.setOperateStatus(Constant.OPERATE_SUCCESS);
+            operLog.setOperateStatus(Constants.OPERATE_SUCCESS);
             operLog.setAgent(UserAgentUtils.getUserAgent(request));
             operLog.setRequestMethod(request.getMethod());
             operLog.setExecuteTime(executeTime / 1000000);
@@ -124,7 +124,7 @@ public class LogAspect {
                 operLog.setRequestParams(StringUtils.substring(obj.toJSONString(), 0, 2000));
             }
             if (e != null) {
-                operLog.setOperateStatus(Constant.OPERATE_FAIL);
+                operLog.setOperateStatus(Constants.OPERATE_FAIL);
                 operLog.setErrorMsg(StringUtils.substring(e.getMessage(), 0, 2000));
             }
             logQueue.add(operLog);

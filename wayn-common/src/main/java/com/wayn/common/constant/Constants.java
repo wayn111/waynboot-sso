@@ -1,6 +1,6 @@
 package com.wayn.common.constant;
 
-public class Constant {
+public class Constants {
     /**
      * 字符编码
      */
@@ -17,16 +17,6 @@ public class Constant {
      * 操作状态，失败
      */
     public static final Integer OPERATE_FAIL = 1;
-    /**
-     * 系统环境变量，默认为dev
-     */
-    public static String ENV = "dev";
-
-
-    /**
-     * 缓存方式
-     */
-    public static String CACHE_TYPE_REDIS = "redis";
 
     /**
      * 当前页

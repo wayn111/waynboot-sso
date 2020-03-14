@@ -4,15 +4,16 @@ import com.caucho.hessian.client.HessianProxyFactory;
 import com.wayn.ssocore.entity.SessionUser;
 import com.wayn.ssocore.entity.SsoUser;
 import com.wayn.ssocore.service.AuthcationRpcService;
-import com.wayn.ssocore.util.UrlUtil;
 import lombok.Data;
 import lombok.SneakyThrows;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URLEncoder;
 import java.util.Objects;
@@ -28,6 +29,8 @@ public class SsoFilter implements Filter {
     private boolean isSsoServer = false;
 
     private AuthcationRpcService authcationRpcService;
+
+    private AntPathMatcher antPathMatcher = new AntPathMatcher(File.separator);
 
     @Override
     public void init(FilterConfig filterConfig) {
@@ -56,11 +59,9 @@ public class SsoFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
-        for (String s : excludeUrls) {
-            if (req.getServletPath().contains(s)) {
-                chain.doFilter(request, response);
-                return;
-            }
+        if (handleExcludeURL(req, resp)) {
+            chain.doFilter(request, response);
+            return;
         }
         HttpSession session = req.getSession();
         SessionUser sessionUser = Objects.isNull(session) ? null : (SessionUser) session.getAttribute("sessionUser");
@@ -73,7 +74,7 @@ public class SsoFilter implements Filter {
                 sessionUser1.setToken(token);
                 sessionUser1.setUser(user);
                 session.setAttribute("sessionUser", sessionUser1);
-                String backUrl = UrlUtil.getBackUrl(req);
+                String backUrl = getBackUrl(req);
                 backUrl = backUrl.substring(0, backUrl.indexOf("token") - 1);
                 // 重跳转当前url，去除token参数
                 resp.sendRedirect(backUrl);
@@ -86,11 +87,37 @@ public class SsoFilter implements Filter {
             }
             session.setAttribute("sessionUser", null);
         }
-        resp.sendRedirect(ssoServerUrl + "/login?" + "backUrl=" + URLEncoder.encode(UrlUtil.getBackUrl(req), "UTF-8"));
+        resp.sendRedirect(ssoServerUrl + "/login?" + "backUrl=" + URLEncoder.encode(getBackUrl(req), "UTF-8"));
     }
 
     @Override
     public void destroy() {
 
+    }
+
+    private boolean handleExcludeURL(HttpServletRequest request, HttpServletResponse response) {
+        if (excludeUrls == null || excludeUrls.length == 0) {
+            return false;
+        }
+        String uri = request.getServletPath();
+        for (String pattern : excludeUrls) {
+            if (antPathMatcher.match(pattern, uri)) {
+                return true;
+            }
+        }
+        System.out.println("ssoFilter failed:" + uri);
+        return false;
+    }
+
+    public String getBackUrl(HttpServletRequest req) {
+        return new StringBuilder().append(req.getRequestURL())
+                .append(req.getQueryString() == null ? "" : "?" + req.getQueryString()).toString();
+    }
+
+    public static void main(String[] args) {
+        AntPathMatcher antPathMatcher = new AntPathMatcher();
+        if (antPathMatcher.match("*.js", "admin/plugins/jquery/jquery.min.js")) {
+            System.out.println(true);
+        }
     }
 }

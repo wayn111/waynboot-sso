@@ -52,5 +52,6 @@ mybatis-plus:
 wayn:
   uploadDir: E:/wayn/upload
   ssoServerUrl: http://127.0.0.1:82/ssoserver
+  waynAdminUrl: http://127.0.0.1/wayn
   xssFilter:
-    excludeUrls: /admin/dist/*,/admin/plugins/*,/mall/fonts/*,*.css,*.js,*.png,*.jpg,*.gif
+    excludeUrls: /admin/dist/*,/admin/plugins/*

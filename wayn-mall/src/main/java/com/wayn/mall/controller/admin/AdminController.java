@@ -1,21 +1,15 @@
 package com.wayn.mall.controller.admin;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.wayn.mall.base.BaseController;
-import com.wayn.mall.constant.Constants;
-import com.wayn.mall.entity.AdminUser;
 import com.wayn.mall.service.AdminUserService;
-import com.wayn.mall.util.security.Md5Utils;
-import org.apache.commons.lang3.StringUtils;
+import com.wayn.mall.util.http.HttpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("admin")
@@ -23,13 +17,17 @@ public class AdminController extends BaseController {
     @Autowired
     private AdminUserService adminUserService;
 
+    @Value(("${wayn.ssoServerUrl}"))
+    private String ssoServerUrl;
+
     @RequestMapping
     public String index(HttpServletRequest request) {
         request.setAttribute("path", "index");
         return "admin/index";
     }
 
-    @RequestMapping("login")
+
+   /* @RequestMapping("login")
     public String login(HttpServletRequest request) {
         return "admin/login";
     }
@@ -65,14 +63,17 @@ public class AdminController extends BaseController {
             session.setAttribute("errorMsg", "登陆失败，请联系作者获得测试账号");
             return "admin/login";
         }
-    }
+    }*/
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
-        request.getSession().removeAttribute("loginUserId");
-        request.getSession().removeAttribute("loginUser");
-        request.getSession().removeAttribute("errorMsg");
-        return "admin/login";
+        request.getSession().removeAttribute("adminUser");
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(ssoServerUrl)
+                .append("/logout?backUrl=")
+                .append(HttpUtil.getRequestContext(request))
+                .append("/admin");
+        return stringBuilder.toString();
     }
 
 }

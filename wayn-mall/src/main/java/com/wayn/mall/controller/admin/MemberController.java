@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 @RequestMapping("admin/users")
@@ -39,8 +40,8 @@ public class MemberController extends BaseController {
      */
     @RequestMapping(value = "/lock/{lockStatus}", method = RequestMethod.POST)
     @ResponseBody
-    public R delete(@RequestBody Integer[] ids, @PathVariable int lockStatus) {
-        if (ids.length < 1) {
+    public R delete(@RequestBody List<Integer> ids, @PathVariable int lockStatus) {
+        if (ids.size() < 1) {
             return R.error("参数异常！");
         }
         if (lockStatus != 0 && lockStatus != 1) {

@@ -1,10 +1,9 @@
 package com.wayn.mall.controller.admin;
 
 import com.wayn.mall.base.BaseController;
-import com.wayn.mall.entity.AdminUser;
 import com.wayn.mall.exception.BusinessException;
-import com.wayn.mall.service.AdminUserService;
-import com.wayn.mall.util.security.Md5Utils;
+import com.wayn.ssocore.entity.SessionUser;
+import com.wayn.ssocore.service.UserRpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -18,18 +17,16 @@ public class ProfileContorller extends BaseController {
     private static final String PREFIX = "admin/profile";
 
     @Autowired
-    private AdminUserService adminUserService;
+    private UserRpcService userRpcService;
 
     @GetMapping
     public String profile(HttpServletRequest request) {
-        Integer loginUserId = (int) request.getSession().getAttribute("loginUserId");
-        AdminUser adminUser = adminUserService.getById(loginUserId);
+        SessionUser adminUser = (SessionUser) request.getSession().getAttribute("adminUser");
         if (adminUser == null) {
             return "admin/login";
         }
         request.setAttribute("path", "profile");
-        request.setAttribute("loginUserName", adminUser.getLoginUserName());
-        request.setAttribute("nickName", adminUser.getNickName());
+        request.setAttribute("loginUserName", adminUser.getUser().getUserName());
         return PREFIX + "/profile";
     }
 
@@ -38,20 +35,13 @@ public class ProfileContorller extends BaseController {
     public String passwordUpdate(HttpServletRequest request,
                                  @RequestParam("originalPassword") String originalPassword,
                                  @RequestParam("newPassword") String newPassword) {
-        Integer loginUserId = (int) request.getSession().getAttribute("loginUserId");
-        AdminUser adminUser = adminUserService.getById(loginUserId);
-        String hash = Md5Utils.hash(originalPassword);
-        if (adminUser == null || !adminUser.getLoginPassword().equals(hash)) {
+        SessionUser adminUser = (SessionUser) request.getSession().getAttribute("adminUser");
+        if (adminUser == null || !adminUser.getUser().getPassword().equals(originalPassword)) {
             throw new BusinessException("原密码输入错误");
         }
-        if (adminUserService.update()
-                .set("login_password", Md5Utils.hash(newPassword))
-                .eq("admin_user_id", loginUserId)
-                .update()) {
+        if (userRpcService.updatePassword(adminUser.getUser().getId(), newPassword)) {
             //修改成功后清空session中的数据，前端控制跳转至登录页
-            request.getSession().removeAttribute("loginUserId");
-            request.getSession().removeAttribute("loginUser");
-            request.getSession().removeAttribute("errorMsg");
+            request.getSession().removeAttribute("adminUser");
             return "success";
         } else {
             return "修改失败";
@@ -61,20 +51,16 @@ public class ProfileContorller extends BaseController {
     @PostMapping("/name")
     @ResponseBody
     public String nameUpdate(HttpServletRequest request,
-                             @RequestParam("loginUserName") String loginUserName,
-                             @RequestParam("nickName") String nickName) {
-        Integer loginUserId = (int) request.getSession().getAttribute("loginUserId");
-        AdminUser adminUser = adminUserService.getById(loginUserId);
+                             @RequestParam("loginUserName") String loginUserName) {
+        SessionUser adminUser = (SessionUser) request.getSession().getAttribute("adminUser");
         if (adminUser == null) {
             throw new BusinessException("服务器内部错误");
         }
-        if (adminUserService.update()
-                .set("login_user_name", loginUserName)
-                .set("nick_name", nickName)
-                .eq("admin_user_id", loginUserId)
-                .update()) {
+
+        if (userRpcService.updateUserName(adminUser.getUser().getId(), loginUserName)) {
             //修改成功后清空session中的数据，前端控制跳转至登录页
-            request.getSession().setAttribute("loginUser", nickName);
+            SessionUser sessionUser = (SessionUser) request.getSession().getAttribute("adminUser");
+            sessionUser.getUser().setUserName(loginUserName);
             return "success";
         } else {
             return "修改失败";

@@ -3,6 +3,7 @@ package com.wayn.framework.rpc.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.wayn.common.domain.User;
 import com.wayn.common.service.UserService;
+import com.wayn.common.util.security.Md5Utils;
 import com.wayn.ssocore.entity.SsoUser;
 import com.wayn.ssocore.service.UserRpcService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +28,25 @@ public class UserRpcServiceImpl implements UserRpcService {
         ssoUser.setId(user.getId());
         ssoUser.setUserName(user.getUserName());
         return ssoUser;
+    }
+
+    @Override
+    public boolean updatePassword(String userId, String password) {
+        return userService.update()
+                .set("password", Md5Utils.hash(password))
+                .update();
+    }
+
+    @Override
+    public boolean updateUserName(String userId, String userName) {
+        User user = userService.getOne(new QueryWrapper<User>()
+                .eq("userName", userName));
+        if (user == null
+                || userName.equals(userService.getById(userId).getUserName())) {
+            return userService.update()
+                    .set("userName", userName)
+                    .update();
+        }
+        return false;
     }
 }

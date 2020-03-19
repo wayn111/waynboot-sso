@@ -1,7 +1,7 @@
-# waynboot
+# waynboot-sso
 
 ### 项目介绍
-waynboot是一个基于SpringBoot，Shiro，Redis，Mybatis-Plus，SSO的多模块系统，包含了SSO单点登陆，
+基于SpringBoot，Shiro，Redis，Mybatis-Plus，SSO的多模块系统，包含了SSO单点登陆，
 通用后台管理，NewBee-mall商城，每日一文等多个模块，支持Shiro与SSO模块的集成，易于上手，学习，二次开发。
 
 #### 主要特性
@@ -38,23 +38,24 @@ waynboot是一个基于SpringBoot，Shiro，Redis，Mybatis-Plus，SSO的多模�
     - ide：Eclipse/Idea
  
 ### 内置模块
-1. admin
+1. wayn-admin
     > 后台权限管理系统
-2. cmomon
+2. wayn-cmomon
     > 后台权限系统的通用类聚集模块
-3. framework
+3. wayn-framework
     > 后台权限系统的核心配置模块，包含shiro，数据源等配置
-4. mall
+4. wayn-mall
     > newbee-mall商城系统，包含前后太系统
-5. others
+5. wayn-others
     > 集成framework的others模块，包含每日一文
-6. ssocore
+6. wayn-ssocore
     > sso单点登录的核心模块
-7. ssoserver
+7. wayn-ssoserver
     > sso单点登录系统，共其他系统集成使用
 
 ### 获取源码
 - [waynboot github](https://github.com/wayn111/waynboot-sso)
+- [waynboot gitee](https://gitee.com/wayn111/waynboot-sso)
 
 ### 参考项目
 - [AdminLTE-admin](https://gitee.com/zhougaojun/KangarooAdmin/tree/master)

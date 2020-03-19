@@ -27,7 +27,6 @@
     - 模板选型：Thymeleaf
     - JS框架：jQuery，vew
     - 数据表格：bootstrapTable，jqGrid
-    - 文件管理：elfinder
     - 弹出层：layer，bootstrap-modal
     - 通知消息：Toastr
     - 树结构控件：jsTree

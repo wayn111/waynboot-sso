@@ -67,13 +67,6 @@
 				<version>${kaptcha.version}</version>
 			</dependency>
 
-			<!-- xxl-sso 单点登陆 -->
-			<dependency>
-				<groupId>com.xuxueli</groupId>
-				<artifactId>xxl-sso-core</artifactId>
-				<version>${xxl-sso.version}</version>
-			</dependency>
-
 			<!--Shiro核心框架 -->
 			<dependency>
 				<groupId>org.apache.shiro</groupId>
@@ -85,13 +78,6 @@
 			<dependency>
 				<groupId>org.apache.shiro</groupId>
 				<artifactId>shiro-spring</artifactId>
-				<version>${shiro.version}</version>
-			</dependency>
-
-			<!-- Shiro使用EhCache缓存框架 -->
-			<dependency>
-				<groupId>org.apache.shiro</groupId>
-				<artifactId>shiro-ehcache</artifactId>
 				<version>${shiro.version}</version>
 			</dependency>
 

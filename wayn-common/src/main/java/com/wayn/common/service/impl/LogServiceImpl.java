@@ -44,7 +44,7 @@ public class LogServiceImpl extends ServiceImpl<LogDao, OperLog> implements LogS
         wrapper.like("moduleName", log.getModuleName());
         wrapper.like("ip", log.getIp());
         wrapper.eq(StringUtils.isNotEmpty(log.getOperation()), "operation", log.getOperation());
-        wrapper.eq(log.getOperateStatus() != null, "operState", log.getOperateStatus());
+        wrapper.eq(log.getOperateStatus() != null, "operateStatus", log.getOperateStatus());
         wrapper.eq(StringUtils.isNotEmpty(log.getOperation()), "operation", log.getOperation());
         Page<OperLog> logPage = logDao.selectPage(page, wrapper);
         for (OperLog record : logPage.getRecords()) {

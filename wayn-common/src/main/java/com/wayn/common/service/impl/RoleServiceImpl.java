@@ -51,7 +51,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, Role> implements RoleS
     public Page<Role> listPage(Page<Role> page, Role role) {
         QueryWrapper<Role> wrapper = ParameterUtil.get();
         wrapper.like("roleName", role.getRoleName());
-        wrapper.eq(role.getRoleStatus() != null, "roleState", role.getRoleStatus());
+        wrapper.eq(role.getRoleStatus() != null, "roleStatus", role.getRoleStatus());
         return roleDao.selectPage(page, wrapper);
     }
 
@@ -132,7 +132,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, Role> implements RoleS
      */
     @Override
     public List<RoleChecked> listCheckedRolesByUid(String uid) {
-        List<Role> list = roleDao.selectList(new QueryWrapper<Role>().eq("roleState", 1));
+        List<Role> list = roleDao.selectList(new QueryWrapper<Role>().eq("roleStatus", 1));
         Set<String> sets = userRoleService.findRolesByUid(uid);
         return list.stream().map(role -> {
             RoleChecked checked = new RoleChecked();

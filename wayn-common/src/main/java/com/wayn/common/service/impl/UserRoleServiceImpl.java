@@ -28,7 +28,7 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleDao, UserRole> impl
         List<UserRole> list = list(new QueryWrapper<UserRole>().eq("userId", id)
                 .select("distinct roleId")
                 .exists(" SELECT u.id FROM sys_user u WHERE u.id = userId ")
-                .exists("  SELECT r.id FROM sys_role r WHERE r.id = roleId AND r.roleState = 1 "));
+                .exists("  SELECT r.id FROM sys_role r WHERE r.id = roleId AND r.roleStatus = 1 "));
         return list.stream().map(UserRole::getRoleId).collect(Collectors.toSet());
     }
 

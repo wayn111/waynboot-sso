@@ -39,7 +39,7 @@
 			LEFT JOIN sys_menu m ON m.id = rm.menuId 
 		WHERE
 			ur.userId = #{uid} 
-			AND r.roleState = 1
+			AND r.roleStatus = 1
 			AND m.type in ( 1, 2 )
 		ORDER  BY m.sort ASC
 	</select>

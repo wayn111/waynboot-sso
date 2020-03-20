@@ -2,10 +2,14 @@ package com.wayn.common.base;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.wayn.common.constant.Constants;
 import com.wayn.common.domain.User;
 import com.wayn.common.exception.BusinessException;
+import com.wayn.common.util.ServletUtil;
 import com.wayn.common.util.http.HttpUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
@@ -46,6 +50,30 @@ public class BaseController {
     protected boolean isGet() {
         return HttpUtil.isGet(request);
     }
+
+    /**
+     * <p>
+     * 获取分页对象
+     * </p>
+     */
+    protected <T> Page<T> getPage() {
+        //设置通用分页
+        Integer pageNumber = ServletUtil.getParameterToInt(Constants.PAGE_NUMBER);
+        Integer pageSize = ServletUtil.getParameterToInt(Constants.PAGE_SIZE);
+        String sortName = ServletUtil.getParameter(Constants.SORT_NAME);
+        String sortOrder = ServletUtil.getParameter(Constants.SORT_ORDER);
+        Page<T> tPage = new Page<>(pageNumber, pageSize);
+        if (StringUtils.isNotEmpty(sortName)) {
+            OrderItem orderItem = new OrderItem();
+            orderItem.setColumn(sortName);
+            if (Constants.ORDER_DESC.equals(sortOrder)) {
+                orderItem.setAsc(false);
+            }
+            tPage.addOrder(orderItem);
+        }
+        return tPage;
+    }
+
 
     /**
      * <p>

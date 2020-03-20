@@ -18,6 +18,8 @@ public class Constants {
      */
     public static final Integer OPERATE_FAIL = 1;
 
+    public static final String ORDER_DESC = "desc";
+
     /**
      * 当前页
      */

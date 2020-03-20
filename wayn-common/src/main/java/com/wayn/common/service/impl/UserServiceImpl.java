@@ -50,7 +50,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
         wrapper.like("userName", user.getUserName());
         wrapper.like("phone", user.getPhone());
         wrapper.like("email", user.getEmail());
-        wrapper.eq(user.getUserStatus() != null, "userState", user.getUserStatus());
+        wrapper.eq(user.getUserStatus() != null, "userStatus", user.getUserStatus());
         wrapper.eq(user.getDeptId() != null, "deptId", user.getDeptId());
         return userDao.selectPage(page, wrapper);
     }

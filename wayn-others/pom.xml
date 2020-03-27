@@ -18,9 +18,16 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
+        <!-- Apache工具组件 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>com.wayn</groupId>
-            <artifactId>wayn-framework</artifactId>
+            <artifactId>wayn-ssocore</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>

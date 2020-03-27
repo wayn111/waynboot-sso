@@ -44,13 +44,13 @@
 3. wayn-framework
     > 后台权限系统的核心配置模块，包含shiro，数据源等配置
 4. wayn-mall
-    > newbee-mall商城系统，包含前后太系统
+    > newbee-mall商城系统，包含前后端系统
 5. wayn-others
-    > 集成framework的others模块，包含每日一文
+    > 集成framework的爬虫模块，包含每日一文
 6. wayn-ssocore
     > sso单点登录的核心模块
 7. wayn-ssoserver
-    > sso单点登录系统，共其他系统集成使用
+    > sso单点登录系统，供其他系统集成使用
 
 ### 获取源码
 - [waynboot github](https://github.com/wayn111/waynboot-sso)

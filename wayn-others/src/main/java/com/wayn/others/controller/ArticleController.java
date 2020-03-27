@@ -1,8 +1,7 @@
 package com.wayn.others.controller;
 
-import com.wayn.common.base.BaseController;
-import com.wayn.common.util.R;
-import com.wayn.framework.config.HttpsClientRequestFactory;
+import com.wayn.others.config.HttpsClientRequestFactory;
+import com.wayn.others.util.R;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,7 @@ import org.springframework.web.client.RestTemplate;
 @Slf4j
 @Controller
 @RequestMapping("others")
-public class ArticleController extends BaseController {
+public class ArticleController {
     private static final String PREFIX = "others/article";
 
     @Autowired

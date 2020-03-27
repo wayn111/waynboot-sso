@@ -22,21 +22,19 @@ import java.util.Objects;
 @Data
 public class SsoFilter implements Filter {
 
+    private static final String ADMIN_USER = "adminUser";
     private String ssoServerUrl;
-
     private String[] excludeUrls;
-
     private boolean isSsoServer = false;
-
     private AuthcationRpcService authcationRpcService;
-
     private AntPathMatcher antPathMatcher = new AntPathMatcher(File.separator);
 
     public static void main(String[] args) {
         AntPathMatcher antPathMatcher = new AntPathMatcher();
-        if (antPathMatcher.match("*.js", "admin/plugins/jquery/jquery.min.js")) {
+        if (antPathMatcher.match("**/*.js", "admin/plugins/jquery/jquery.min.js")) {
             System.out.println(true);
         }
+
     }
 
     @Override
@@ -71,7 +69,7 @@ public class SsoFilter implements Filter {
             return;
         }
         HttpSession session = req.getSession();
-        SessionUser sessionUser = Objects.isNull(session) ? null : (SessionUser) session.getAttribute("adminUser");
+        SessionUser sessionUser = Objects.isNull(session) ? null : (SessionUser) session.getAttribute(ADMIN_USER);
         String token = (sessionUser == null) ? null : sessionUser.getToken();
         if (StringUtils.isEmpty(token)) {
             // 从parameter和cookie中查询token参数
@@ -80,7 +78,7 @@ public class SsoFilter implements Filter {
                 SessionUser sessionUser1 = new SessionUser();
                 sessionUser1.setToken(token);
                 sessionUser1.setUser(user);
-                session.setAttribute("adminUser", sessionUser1);
+                session.setAttribute(ADMIN_USER, sessionUser1);
                 String backUrl = getBackUrl(req);
                 backUrl = backUrl.substring(0, backUrl.indexOf("token") - 1);
                 // 重跳转当前url，去除token参数
@@ -92,7 +90,7 @@ public class SsoFilter implements Filter {
                 chain.doFilter(request, response);
                 return;
             }
-            session.removeAttribute("adminUser");
+            session.removeAttribute(ADMIN_USER);
         }
         resp.sendRedirect(ssoServerUrl + "/login?" + "backUrl=" + URLEncoder.encode(getBackUrl(req), "UTF-8"));
     }

@@ -1,15 +1,14 @@
 package com.wayn.common.exception;
 
 import com.wayn.common.base.BaseController;
-import com.wayn.common.util.http.HttpUtil;
 import com.wayn.common.util.R;
+import com.wayn.common.util.http.HttpUtil;
 import org.apache.shiro.ShiroException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -62,22 +61,6 @@ public class GlobalExceptionAdvice extends BaseController {
             return R.error(e.getMessage());
         }
         return new ModelAndView("error/unauth");
-    }
-
-    /**
-     * 处理404异常
-     *
-     * @param e
-     * @param request
-     * @return
-     */
-    @ExceptionHandler(NoHandlerFoundException.class)
-    public Object handle404Exception(NoHandlerFoundException e, HttpServletRequest request) {
-        logger.error(e.getMessage(), e);
-        if (HttpUtil.isAjax(request)) {
-            return R.error("您请求路径不存在，请检查url！");
-        }
-        return new ModelAndView("error/404");
     }
 
     /**

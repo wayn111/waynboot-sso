@@ -58,6 +58,8 @@ wayn:
   logHandlerCount: 3
   ssoServerUrl: http://127.0.0.1:82/ssoserver
   currentServerUrl: http://127.0.0.1:83/others
+  xssFilter:
+    excludeUrls: /**/*.js,/**/*.css,/favicon.ico,/fonts/*,/plugin/*
 
 
 

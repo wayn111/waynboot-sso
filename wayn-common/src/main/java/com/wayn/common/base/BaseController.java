@@ -9,12 +9,11 @@ import com.wayn.common.domain.User;
 import com.wayn.common.exception.BusinessException;
 import com.wayn.common.util.ServletUtil;
 import com.wayn.common.util.http.HttpUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletContext;
@@ -22,8 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+@Slf4j
 public class BaseController {
-    protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     protected HttpServletRequest request;
@@ -58,20 +57,25 @@ public class BaseController {
      */
     protected <T> Page<T> getPage() {
         //设置通用分页
-        Integer pageNumber = ServletUtil.getParameterToInt(Constants.PAGE_NUMBER);
-        Integer pageSize = ServletUtil.getParameterToInt(Constants.PAGE_SIZE);
-        String sortName = ServletUtil.getParameter(Constants.SORT_NAME);
-        String sortOrder = ServletUtil.getParameter(Constants.SORT_ORDER);
-        Page<T> tPage = new Page<>(pageNumber, pageSize);
-        if (StringUtils.isNotEmpty(sortName)) {
-            OrderItem orderItem = new OrderItem();
-            orderItem.setColumn(sortName);
-            if (Constants.ORDER_DESC.equals(sortOrder)) {
-                orderItem.setAsc(false);
+        try {
+            Integer pageNumber = ServletUtil.getParameterToInt(Constants.PAGE_NUMBER);
+            Integer pageSize = ServletUtil.getParameterToInt(Constants.PAGE_SIZE);
+            String sortName = ServletUtil.getParameter(Constants.SORT_NAME);
+            String sortOrder = ServletUtil.getParameter(Constants.SORT_ORDER);
+            Page<T> tPage = new Page<>(pageNumber, pageSize);
+            if (StringUtils.isNotEmpty(sortName)) {
+                OrderItem orderItem = new OrderItem();
+                orderItem.setColumn(sortName);
+                if (Constants.ORDER_DESC.equals(sortOrder)) {
+                    orderItem.setAsc(false);
+                }
+                tPage.addOrder(orderItem);
             }
-            tPage.addOrder(orderItem);
+            return tPage;
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return getPage(1, 10);
         }
-        return tPage;
     }
 
 

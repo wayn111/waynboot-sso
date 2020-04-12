@@ -15,6 +15,8 @@ import com.wayn.common.service.*;
 import com.wayn.common.util.ParameterUtil;
 import com.wayn.common.util.R;
 import com.wayn.common.util.shiro.util.ShiroUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+@Api(value = "用户表接口", tags = {"用户表接口"})
 @Controller
 @RequestMapping("/system/user")
 public class UserController extends BaseController {
@@ -52,6 +55,7 @@ public class UserController extends BaseController {
         return PREFIX + "/user";
     }
 
+    @ApiOperation(value = "用户列表", notes = "用户列表")
     @Log(value = "用户管理")
     @RequiresPermissions("sys:user:user")
     @ResponseBody
@@ -123,6 +127,7 @@ public class UserController extends BaseController {
         return !userService.exit(params);
     }
 
+    @ApiOperation(value = "保存用户", notes = "保存用户")
     @Log(value = "用户管理", operator = Operator.ADD)
     @RequiresPermissions("sys:user:add")
     @ResponseBody
@@ -132,6 +137,7 @@ public class UserController extends BaseController {
         return R.success("新增用户成功");
     }
 
+    @ApiOperation(value = "更新用户", notes = "更新用户")
     @Log(value = "用户管理", operator = Operator.UPDATE)
     @RequiresPermissions("sys:user:edit")
     @ResponseBody
@@ -142,6 +148,7 @@ public class UserController extends BaseController {
 
     }
 
+    @ApiOperation(value = "删除用户", notes = "删除用户")
     @Log(value = "用户管理", operator = Operator.DELETE)
     @RequiresPermissions("sys:user:remove")
     @ResponseBody

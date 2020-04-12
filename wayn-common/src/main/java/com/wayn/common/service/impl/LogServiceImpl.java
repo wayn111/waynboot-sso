@@ -40,9 +40,9 @@ public class LogServiceImpl extends ServiceImpl<LogDao, OperLog> implements LogS
     @Override
     public Page<OperLog> listPage(Page<OperLog> page, OperLog log) {
         QueryWrapper<OperLog> wrapper = ParameterUtil.get();
-        wrapper.like("userName", log.getUserName());
-        wrapper.like("moduleName", log.getModuleName());
-        wrapper.like("ip", log.getIp());
+        wrapper.like(StringUtils.isNotEmpty(log.getUserName()), "userName", log.getUserName());
+        wrapper.like(StringUtils.isNotEmpty(log.getModuleName()), "moduleName", log.getModuleName());
+        wrapper.like(StringUtils.isNotEmpty(log.getIp()), "ip", log.getIp());
         wrapper.eq(StringUtils.isNotEmpty(log.getOperation()), "operation", log.getOperation());
         wrapper.eq(log.getOperateStatus() != null, "operateStatus", log.getOperateStatus());
         wrapper.eq(StringUtils.isNotEmpty(log.getOperation()), "operation", log.getOperation());

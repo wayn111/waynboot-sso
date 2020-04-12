@@ -50,7 +50,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, Role> implements RoleS
     @Override
     public Page<Role> listPage(Page<Role> page, Role role) {
         QueryWrapper<Role> wrapper = ParameterUtil.get();
-        wrapper.like("roleName", role.getRoleName());
+        wrapper.like(StringUtils.isNotEmpty(role.getRoleName()), "roleName", role.getRoleName());
         wrapper.eq(role.getRoleStatus() != null, "roleStatus", role.getRoleStatus());
         return roleDao.selectPage(page, wrapper);
     }

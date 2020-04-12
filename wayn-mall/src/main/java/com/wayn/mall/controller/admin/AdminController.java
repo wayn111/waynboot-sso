@@ -26,7 +26,7 @@ public class AdminController extends BaseController {
         return "admin/index";
     }
 
-
+    // 由于开启了sso登陆，故注释此代码
    /* @RequestMapping("login")
     public String login(HttpServletRequest request) {
         return "admin/login";
@@ -73,7 +73,7 @@ public class AdminController extends BaseController {
                 .append("/logout?backUrl=")
                 .append(HttpUtil.getRequestContext(request))
                 .append("/admin");
-        return stringBuilder.toString();
+        return redirectTo(stringBuilder.toString());
     }
 
 }

@@ -27,6 +27,8 @@ $(function () {
         rownumWidth: 20,
         autowidth: true,
         multiselect: true,
+        sortname: 'createTime', //要排序的字段 //默认表格加载时根据fca09列排序
+        sortorder: 'desc', //默认的排序方式,跟数据库的asc,desc一样 asc 降序 desc 升序
         pager: "#jqGridPager",
         jsonReader: {
             root: "records",

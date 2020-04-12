@@ -38,9 +38,10 @@ $(function () {
                     console.log(r);
                     if (r == 'success') {
                         alert('修改成功');
-                        window.location.href = _ctx + '/admin/login';
+                        window.location.href = _ctx + '/admin';
                     } else {
                         alert('修改失败');
+                        $("#updatePasswordButton").attr("disabled", false);
                     }
                 }
             });

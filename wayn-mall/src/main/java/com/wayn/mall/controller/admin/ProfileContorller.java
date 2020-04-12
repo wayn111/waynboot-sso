@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
@@ -40,8 +41,12 @@ public class ProfileContorller extends BaseController {
             throw new BusinessException("原密码输入错误");
         }
         if (userRpcService.updatePassword(adminUser.getUser().getId(), newPassword)) {
-            //修改成功后清空session中的数据，前端控制跳转至登录页
+            // 修改成功后清空session中的数据，前端控制跳转至登录页
             request.getSession().removeAttribute("adminUser");
+            Cookie cookie = new Cookie("token", null);
+            cookie.setPath("/");
+            cookie.setHttpOnly(true);
+            response.addCookie(cookie);
             return "success";
         } else {
             return "修改失败";

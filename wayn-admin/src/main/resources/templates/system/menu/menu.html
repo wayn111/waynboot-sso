@@ -226,7 +226,7 @@
                         url: prefix + "/remove/" + id,
                         type: "delete",
                         success: function (data) {
-                            if (data.code != 100) {
+                            if (data.code != 200) {
                                 layer.alert(data.msg);
                             } else {
                                 layer.msg("删除成功", {icon: 1});

@@ -2,6 +2,12 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="include :: header('user')"/>
+    <style>
+        .danger {
+            color: red;
+            font-size: 5px;
+        }
+    </style>
 </head>
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -16,6 +22,9 @@
                             <input id="userName" name="userName" class="form-control" th:value="${userName}"
                                    type="text">
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-12 control-label danger">*修改用户名，会将密码重置为132456。</label>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-8 col-sm-offset-3">

@@ -114,7 +114,7 @@
                 parent.layer.alert("Connection error");
             },
             success: function (data) {
-                if (data.code != 100) {
+                if (data.code != 200) {
                     layer.alert(data.msg);
                 } else {
                     parent.layer.msg(data.msg, {icon: 1});

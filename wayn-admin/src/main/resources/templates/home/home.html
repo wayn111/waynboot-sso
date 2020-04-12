@@ -38,7 +38,7 @@
                         <div id="user-avatar" class="pull-left" style="margin-top: 6px">
                             <img alt="image" class="img-circle" th:src="${user.userImg}"
                                  style="cursor:pointer;height: 64px"
-                                 onclick="createMenuItem(_ctx + 'profile','个人资料')"/>
+                                 th:onclick="createMenuItem(_ctx + 'profile','个人资料')"/>
                         </div>
                         <div id="user-state" class="pull-left margin-left10">
                             <p style="margin: 10px 0px 10px 0px;color: white">

@@ -20,6 +20,8 @@ public class Constants {
 
     public static final String ORDER_DESC = "desc";
 
+    public static final String DEFAULT_PASSWORD = "123456";
+
     /**
      * 当前页
      */

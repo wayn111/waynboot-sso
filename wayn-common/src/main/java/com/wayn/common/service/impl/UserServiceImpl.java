@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.wayn.common.constant.Constants;
 import com.wayn.common.dao.DeptDao;
 import com.wayn.common.dao.UserDao;
 import com.wayn.common.domain.Dept;
@@ -15,6 +16,7 @@ import com.wayn.common.service.UserRoleService;
 import com.wayn.common.service.UserService;
 import com.wayn.common.util.ParameterUtil;
 import com.wayn.common.util.TreeBuilderUtil;
+import com.wayn.common.util.shiro.util.ShiroUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.crypto.hash.SimpleHash;
@@ -140,7 +142,10 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
 
     @Override
     public boolean editAccount(String id, String userName) {
-        update(new UpdateWrapper<User>().eq("id", id).set("userName", userName));
+        update(new UpdateWrapper<User>()
+                .eq("id", id)
+                .set("userName", userName)
+                .set("password", ShiroUtil.md5encrypt(Constants.DEFAULT_PASSWORD, userName)));
         return true;
     }
 

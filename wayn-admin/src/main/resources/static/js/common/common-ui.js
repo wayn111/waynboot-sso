@@ -245,7 +245,7 @@ function summernoteSendFile(file, obj) {
     data.append('file', file);
     $.ajax({
         type: 'POST',
-        url: _ctx + '/commom/upload',
+        url: _ctx + '/common/upload',
         data: data,
         cache: false,
         contentType: false,

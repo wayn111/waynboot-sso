@@ -6,10 +6,10 @@ import com.wayn.common.annotation.Log;
 import com.wayn.common.constant.Constants;
 import com.wayn.common.domain.OperLog;
 import com.wayn.common.domain.User;
-import com.wayn.common.util.shiro.util.ShiroUtil;
-import com.wayn.common.util.ip.IP2RegionUtil;
 import com.wayn.common.util.ServletUtil;
 import com.wayn.common.util.UserAgentUtils;
+import com.wayn.common.util.ip.IP2RegionUtil;
+import com.wayn.common.util.shiro.util.ShiroUtil;
 import com.wayn.framework.manager.log.LogQueue;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
@@ -28,12 +28,7 @@ import java.util.Objects;
 @Component
 public class LogAspect {
 
-    private static ThreadLocal<Long> startTimeLocal = new ThreadLocal<Long>() {
-        @Override
-        protected Long initialValue() {
-            return 0L;
-        }
-    };
+    private static final ThreadLocal<Long> startTimeLocal = ThreadLocal.withInitial(() -> 0L);
 
     @Autowired
     private LogQueue logQueue;
@@ -80,7 +75,7 @@ public class LogAspect {
      * @param response
      */
     private void handlerLog(JoinPoint joinPoint, Exception e, Object response) {
-        Long executeTime = System.nanoTime() - startTimeLocal.get();
+        long executeTime = System.nanoTime() - startTimeLocal.get();
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         Method method = methodSignature.getMethod();
         HttpServletRequest request = ServletUtil.getRequest();

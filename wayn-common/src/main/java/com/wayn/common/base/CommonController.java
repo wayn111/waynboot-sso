@@ -1,12 +1,13 @@
 package com.wayn.common.base;
 
 import com.wayn.common.exception.BusinessException;
-import com.wayn.common.util.*;
+import com.wayn.common.util.R;
 import com.wayn.common.util.file.FileUploadUtil;
 import com.wayn.common.util.file.FileUtils;
 import com.wayn.common.util.http.HttpUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,9 +25,12 @@ import java.io.File;
  * @author ruoyi
  */
 @Controller
-@RequestMapping("commom")
+@RequestMapping("common")
 public class CommonController {
     private static final Logger log = LoggerFactory.getLogger(CommonController.class);
+
+    @Value("${wayn.uploadDir}")
+    private String uploadDir;
 
     /**
      * 通用下载请求
@@ -37,7 +41,6 @@ public class CommonController {
     @GetMapping("download")
     public void fileDownload(String fileName, Boolean delete, HttpServletResponse response, HttpServletRequest request) {
         try {
-            String uploadDir = ProperUtil.get("wayn.uploadDir");
             if (!FileUtils.isValidFilename(fileName)) {
                 throw new BusinessException("文件名称(" + fileName + ")非法，不允许下载。 ");
             }
@@ -66,7 +69,7 @@ public class CommonController {
     public R uploadFile(MultipartFile file, HttpServletRequest request) throws Exception {
         try {
             // 上传文件路径
-            String filePath = ProperUtil.get("wayn.uploadDir");
+            String filePath = uploadDir;
             String fileName = FileUploadUtil.uploadFile(file, filePath);
             String requestUrl = HttpUtil.getRequestContext(request);
             String url = requestUrl + "/upload/" + fileName;

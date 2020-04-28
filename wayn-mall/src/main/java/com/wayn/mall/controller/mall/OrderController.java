@@ -87,13 +87,15 @@ public class OrderController extends BaseController {
             orderListVO.setOrderStatusString(OrderStatusEnum.getOrderStatusEnumByStatus(orderListVO.getOrderStatus()).getName());
         }
         List<Long> longs = orderListVOS.stream().map(OrderListVO::getOrderId).collect(Collectors.toList());
-        List<OrderItem> orderItems = orderItemService.list(new QueryWrapper<OrderItem>().in("order_id", longs));
-        Map<Long, List<OrderItem>> longListMap = orderItems.stream().collect(Collectors.groupingBy(OrderItem::getOrderId));
-        for (OrderListVO orderListVO : orderListVOS) {
-            if (longListMap.containsKey(orderListVO.getOrderId())) {
-                List<OrderItem> orderItemList = longListMap.get(orderListVO.getOrderId());
-                List<OrderItemVO> itemVOList = MyBeanUtil.copyList(orderItemList, OrderItemVO.class);
-                orderListVO.setNewBeeMallOrderItemVOS(itemVOList);
+        if (!longs.isEmpty()) {
+            List<OrderItem> orderItems = orderItemService.list(new QueryWrapper<OrderItem>().in("order_id", longs));
+            Map<Long, List<OrderItem>> longListMap = orderItems.stream().collect(Collectors.groupingBy(OrderItem::getOrderId));
+            for (OrderListVO orderListVO : orderListVOS) {
+                if (longListMap.containsKey(orderListVO.getOrderId())) {
+                    List<OrderItem> orderItemList = longListMap.get(orderListVO.getOrderId());
+                    List<OrderItemVO> itemVOList = MyBeanUtil.copyList(orderItemList, OrderItemVO.class);
+                    orderListVO.setNewBeeMallOrderItemVOS(itemVOList);
+                }
             }
         }
         request.setAttribute("orderPageResult", iPage);

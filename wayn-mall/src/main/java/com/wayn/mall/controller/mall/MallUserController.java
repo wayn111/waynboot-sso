@@ -83,7 +83,7 @@ public class MallUserController extends BaseController {
         }
         List<MallUser> list = mallUserService.list(new QueryWrapper<MallUser>()
                 .eq("login_name", loginName));
-        if (CollectionUtils.isNotEmpty(list) && list.size() != 1) {
+        if (CollectionUtils.isNotEmpty(list) && list.size() > 0) {
             return R.error("该账户名已存在");
         }
         MallUser mallUser = new MallUser();

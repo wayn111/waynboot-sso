@@ -90,13 +90,13 @@
         }
         //验证
         var params = $("#registerForm").serialize();
-        var url = '/register';
+        var url = _ctx + '/register';
         $.ajax({
             type: 'POST',//方法类型
             url: url,
             data: params,
             success: function (result) {
-                if (result.resultCode == 200) {
+                if (result.code == 200) {
                     swal({
                         title: "注册成功",
                         text: "是否跳转至登录页?",
@@ -105,17 +105,16 @@
                         dangerMode: true,
                     }).then((flag) => {
                             if (flag) {
-                                window.location.href = '/login';
+                                window.location.href = _ctx + '/login';
                             }
                         }
                     )
                     ;
                 } else {
-                    swal(result.message, {
+                    swal(result.msg, {
                         icon: "error",
                     });
                 }
-                ;
             },
             error: function () {
                 swal("操作失败", {

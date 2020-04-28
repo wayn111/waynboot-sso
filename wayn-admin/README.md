@@ -18,20 +18,16 @@
     - 核心框架：Spring
     - 控制层框架：SpringMVC
     - 权限控制：Shiro
-    - 消息推送：Websocket
-    - 任务调度：Quartz
     - 持久层框架：Mybatis-Plus
     - 日志管理：SLF4J > logback
-    - 缓存控制：Ehcache/Redis可切换
+    - 缓存控制：Redis
     - 环境控制：使用spring profile可根据`System/JVM`参数灵活切换配置文件
 2. 前端
+    - 模板引擎：Thymeleaf
     - 管理模板：H+
     - JS框架：jQuery
     - 数据表格：bootstrapTable
-    - 文件管理：elfinder
     - 弹出层：layer
-    - 通知消息：Toastr
-    - 消息推送/轮询：sockJs、stomp
     - 树结构控件：jsTree
     - checkbox选择控件：bootstrapSwitch
 3. 开发平台
@@ -48,6 +44,12 @@
     - 部门管理：用户所属部门
     - 日志操作：记录用户操作，包含请求参数
  
+### 启动顺序
+1. 启动wayn-ssoserver下的WaynSsoApplication
+2. 启动wayn-admin下的WaynAdminApplication
+3. 启动wayn-others下的WaynOthersApplication
+4. 启动wayn-mall下的WaynMallApplication
+
 ### 获取源码
 - [wayn-admin 码云](https://gitee.com/wayn111/crowdfounding)
 - [wayn-admin github](https://github.com/wayn111/crowdfounding)

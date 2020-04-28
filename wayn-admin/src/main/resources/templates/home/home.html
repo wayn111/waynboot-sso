@@ -119,7 +119,7 @@
             <nav class="page-tabs J_menuTabs">
                 <div class="page-tabs-content">
                     <a href="javascript:;" class="active J_menuTab"
-                       th:data-id="@{/main/mainIndex}">首页</a>
+                       th:data-id="@{/} + 'home/mainIndex'">首页</a>
                 </div>
             </nav>
             <button class="roll-nav roll-right J_tabRight">
@@ -143,8 +143,8 @@
         </div>
         <div class="row J_mainContent" id="content-main">
             <iframe class="J_iframe" name="iframe0" width="100%" height="100%"
-                    frameborder="0" th:src="@{/home/mainIndex}"
-                    data-id="/main/mainIndex" seamless></iframe>
+                    frameborder="0" th:src="@{/} + 'home/mainIndex'"
+                    th:data-id="@{/} + 'home/mainIndex'" seamless></iframe>
         </div>
         <div class="footer">
             <div class="pull-right">

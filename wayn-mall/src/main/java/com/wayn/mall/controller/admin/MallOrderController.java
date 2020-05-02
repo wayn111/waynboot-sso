@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wayn.mall.base.BaseController;
 import com.wayn.mall.controller.vo.OrderItemVO;
+import com.wayn.mall.controller.vo.OrderVO;
 import com.wayn.mall.entity.Order;
 import com.wayn.mall.entity.OrderItem;
 import com.wayn.mall.enums.OrderStatusEnum;
@@ -45,9 +46,9 @@ public class MallOrderController extends BaseController {
      */
     @GetMapping("/list")
     @ResponseBody
-    public IPage list(Order order, HttpServletRequest request) {
+    public IPage list(OrderVO orderVO, HttpServletRequest request) {
         Page<Order> page = getPage(request);
-        return orderService.selectPage(page, order);
+        return orderService.selectPage(page, orderVO);
     }
 
     @ResponseBody

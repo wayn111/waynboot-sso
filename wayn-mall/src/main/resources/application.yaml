@@ -16,7 +16,7 @@ logging:
   level:
     com.wayn: debug
     org.springframework: info
-    com.baomidou: debug
+    com.baomidou: info
 
 # spring
 spring:

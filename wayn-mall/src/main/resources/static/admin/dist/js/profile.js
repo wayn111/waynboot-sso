@@ -15,7 +15,6 @@ $(function () {
                     console.log(r);
                     if (r == 'success') {
                         alert('修改成功');
-                        location.reload();
                     } else {
                         alert('修改失败');
                     }
@@ -38,10 +37,9 @@ $(function () {
                     console.log(r);
                     if (r == 'success') {
                         alert('修改成功');
-                        window.location.href = _ctx + '/admin';
+                        window.location.href = _ctx + '/admin/login';
                     } else {
                         alert('修改失败');
-                        $("#updatePasswordButton").attr("disabled", false);
                     }
                 }
             });
@@ -52,15 +50,25 @@ $(function () {
 /**
  * 名称验证
  */
-function validUserNameForUpdate(userName) {
+function validUserNameForUpdate(userName, nickName) {
     if (isNull(userName) || userName.trim().length < 1) {
         $('#updateUserName-info').css("display", "block");
         $('#updateUserName-info').html("请输入登陆名称！");
         return false;
     }
+    if (isNull(nickName) || nickName.trim().length < 1) {
+        $('#updateUserName-info').css("display", "block");
+        $('#updateUserName-info').html("昵称不能为空！");
+        return false;
+    }
     if (!validUserName(userName)) {
         $('#updateUserName-info').css("display", "block");
         $('#updateUserName-info').html("请输入符合规范的登录名！");
+        return false;
+    }
+    if (!validCN_ENString2_18(nickName)) {
+        $('#updateUserName-info').css("display", "block");
+        $('#updateUserName-info').html("请输入符合规范的昵称！");
         return false;
     }
     return true;

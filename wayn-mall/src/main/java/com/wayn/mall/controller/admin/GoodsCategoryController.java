@@ -117,16 +117,19 @@ public class GoodsCategoryController extends BaseController {
     @PostMapping("/delete")
     @ResponseBody
     public R delete(@RequestBody List<Long> ids) {
+        // 如果是一级分类，则添加一级分类
         List<Long> list = new ArrayList<>(ids);
         for (Long id : ids) {
-            List<GoodsCategory> list1 = goodsCategoryService.list(new QueryWrapper<GoodsCategory>().select("category_id").eq("parent_id", id));
-            if (CollectionUtils.isNotEmpty(list1)) {
-                List<Long> collect = list1.stream().map(GoodsCategory::getCategoryId).collect(Collectors.toList());
-                list.addAll(collect);
-                for (Long aLong : collect) {
-                    List<GoodsCategory> list2 = goodsCategoryService.list(new QueryWrapper<GoodsCategory>().select("category_id").eq("parent_id", aLong));
-                    List<Long> collect1 = list2.stream().map(GoodsCategory::getCategoryId).collect(Collectors.toList());
-                    list.addAll(collect1);
+            // 查询二级分类
+            List<GoodsCategory> secondCates = goodsCategoryService.list(new QueryWrapper<GoodsCategory>().select("category_id").eq("parent_id", id));
+            if (CollectionUtils.isNotEmpty(secondCates)) {
+                List<Long> secondCatesIds = secondCates.stream().map(GoodsCategory::getCategoryId).collect(Collectors.toList());
+                list.addAll(secondCatesIds);
+                for (Long aLong : secondCatesIds) {
+                    // 查询三级分类
+                    List<GoodsCategory> thirdCates = goodsCategoryService.list(new QueryWrapper<GoodsCategory>().select("category_id").eq("parent_id", aLong));
+                    List<Long> thirdCatesIds = thirdCates.stream().map(GoodsCategory::getCategoryId).collect(Collectors.toList());
+                    list.addAll(thirdCatesIds);
                 }
             }
         }

@@ -299,7 +299,12 @@ public class HttpUtil {
                 request.getContextPath();
     }
 
-    public static String getValueByCookie(HttpServletRequest request) {
+    /**
+     * 从cookie中获取token值
+     * @param request
+     * @return token值
+     */
+    public static String getTokenByCookie(HttpServletRequest request) {
         String value = "";
         Cookie[] cookies = request.getCookies();
         if (Objects.nonNull(cookies)) {

@@ -90,7 +90,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements MenuS
         List<Menu> returnList = new ArrayList<>();
         menus.forEach(menu -> {
             if (pid.equals(menu.getPid())) {
-                //只设置菜单类型为 目录 1 或者菜单 2 的记录
+                // 只设置菜单类型为 目录1 或者菜单2 的记录
                 if (menu.getType() < 2) {
                     menu.setChildren(selectTreeMenuByMenusAndPid(menus, menu.getId()));
                 }
@@ -130,7 +130,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements MenuS
         List<RoleMenu> list = roleMenuDao.selectList(new QueryWrapper<RoleMenu>().eq("roleId", id));
         List<Long> menuIds = new ArrayList<>();
         list.forEach(item -> menuIds.add(item.getMenuId()));
-        //去掉菜单的父菜单，jstree默认会勾选父菜单
+        // 去掉菜单的父菜单，jstree默认会勾选父菜单
         if (menuIds.size() > 0) {
             List<Menu> list2 = menuDao.selectBatchIds(menuIds);
             List<Long> temp = menuIds;
@@ -149,7 +149,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements MenuS
             tree.setText(menu.getMenuName());
             Map<String, Object> state = new HashMap<>();
             Long menuId = menu.getId();
-            //设置选中状态
+            // 设置选中状态
             if (menuIds.contains(menuId)) {
                 state.put("selected", true);
             } else {

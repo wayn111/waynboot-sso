@@ -15,7 +15,7 @@ public class DataSourceController extends BaseController {
     @Log(value = "数据源监控")
     @RequiresPermissions("monitor:datasource:datasource")
     @GetMapping
-    public String monitorindex(Model model) {
+    public String monitorIndex(Model model) {
         return redirectTo("/druid");
     }
 }

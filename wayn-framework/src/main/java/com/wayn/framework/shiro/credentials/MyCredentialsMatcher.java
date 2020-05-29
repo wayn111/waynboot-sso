@@ -35,7 +35,7 @@ public class MyCredentialsMatcher extends HashedCredentialsMatcher {
     @Override
     public boolean doCredentialsMatch(AuthenticationToken token, AuthenticationInfo info) {
         String userName = (String) token.getPrincipal();
-        //retry count + 1
+        // retry count + 1
         Object o = passwordRetryCache.get(userName) == null ? null : passwordRetryCache.get(userName).get();
         if (o == null) {
             passwordRetryCache.put(userName, new AtomicInteger(0));
@@ -45,12 +45,12 @@ public class MyCredentialsMatcher extends HashedCredentialsMatcher {
             // 计算过期至今的时间
             Duration duration = passwordRetryCache.getCacheConfiguration().getTtl();
             String timeBefore = DateUtils.getTimeAfter(new Date(duration.toMillis()));
-            //if retry count > 5 throw
+            // if retry count > 5 throw
             throw new ExcessiveAttemptsException("该账号密码重试次数过多，请在" + timeBefore + "重试");
         }
         boolean matches = super.doCredentialsMatch(token, info);
         if (matches) {
-            //clear retry count
+            // clear retry count
             passwordRetryCache.evict(userName);
         }
         return matches;

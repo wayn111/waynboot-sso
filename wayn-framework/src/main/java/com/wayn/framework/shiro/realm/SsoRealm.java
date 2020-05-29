@@ -13,7 +13,6 @@ import com.wayn.ssocore.service.AuthcationRpcService;
 import lombok.SneakyThrows;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
@@ -69,7 +68,6 @@ public class SsoRealm extends AuthorizingRealm {
                 authcationRpcService = (AuthcationRpcService) new HessianProxyFactory().create(AuthcationRpcService.class,
                         ssoServerUrl + "/rpc/authcationRpcService");
             } catch (MalformedURLException e) {
-                e.printStackTrace();
                 throw new RuntimeException("ssoRealm:authcationRpcService初始化失败！");
             }
         }
@@ -88,7 +86,7 @@ public class SsoRealm extends AuthorizingRealm {
 
     @SneakyThrows
     @Override
-    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) {
         SsoToken ssoToken = (SsoToken) authenticationToken;
         if (ssoToken == null) {
             return null;

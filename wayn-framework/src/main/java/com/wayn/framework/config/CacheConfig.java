@@ -21,7 +21,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
-import redis.clients.jedis.JedisPoolConfig;
 
 import java.time.Duration;
 
@@ -49,7 +48,7 @@ public class CacheConfig extends CachingConfigurerSupport {
     private int databaseIndex = 0;
 
     @Bean
-    public JedisConnectionFactory jedisConnectionFactory(JedisPoolConfig jedisPoolConfig) {
+    public JedisConnectionFactory jedisConnectionFactory() {
         RedisStandaloneConfiguration config = new RedisStandaloneConfiguration(host, port);
         config.setDatabase(databaseIndex);
         config.setPassword(password);

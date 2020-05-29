@@ -21,7 +21,7 @@ public class TokenValidateFilter extends AccessControlFilter {
 
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
-        String token = HttpUtil.getValueByCookie((HttpServletRequest) request);
+        String token = HttpUtil.getTokenByCookie((HttpServletRequest) request);
         if (StringUtils.isNotEmpty(token)) {
             if (!authcationRpcService.validateAndRefresh(token)) {
                 return false;

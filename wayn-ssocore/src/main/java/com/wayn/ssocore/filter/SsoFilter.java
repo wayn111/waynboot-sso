@@ -31,7 +31,7 @@ public class SsoFilter implements Filter {
 
     public static void main(String[] args) {
         AntPathMatcher antPathMatcher = new AntPathMatcher();
-        if (antPathMatcher.match("**/*.js", "admin/plugins/jquery/jquery.min.js")) {
+        if (antPathMatcher.match("/**/*.js", "/admin/plugins/jquery/jquery.min.js")) {
             System.out.println(true);
         }
 

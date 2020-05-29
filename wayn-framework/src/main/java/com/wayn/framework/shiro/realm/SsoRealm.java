@@ -96,18 +96,18 @@ public class SsoRealm extends AuthorizingRealm {
         if (StringUtils.isBlank(token)) {
             return null;
         }
-        boolean validate = authcationRpcService.validateAndRefresh(token);
-        if (validate) {
-            SsoUser ssoUser = JsonUtil.unmarshal(redisOpts.get(token.getBytes()), SsoUser.class);
-            User dbUser = userService.getById(ssoUser.getId());
-            ssoToken.setUsername(ssoUser.getUserName());
-            ssoToken.setPassword(ssoUser.getPassword().toCharArray());
-            // 盐值加密
-            ByteSource byteSource = ByteSource.Util.bytes(dbUser.getUserName());
-            SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(dbUser, dbUser.getPassword(), byteSource, getName());
-            return info;
+        // 未登陆直接返回
+        if (!authcationRpcService.validateAndRefresh(token)) {
+            return null;
         }
-        return null;
+        SsoUser ssoUser = JsonUtil.unmarshal(redisOpts.get(token.getBytes()), SsoUser.class);
+        User dbUser = userService.getById(ssoUser.getId());
+        ssoToken.setUsername(ssoUser.getUserName());
+        ssoToken.setPassword(ssoUser.getPassword().toCharArray());
+        // 盐值加密
+        ByteSource byteSource = ByteSource.Util.bytes(dbUser.getUserName());
+        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(dbUser, dbUser.getPassword(), byteSource, getName());
+        return info;
     }
 
     public void clearCachedAuthorizationInfo() {

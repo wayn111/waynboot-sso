@@ -91,11 +91,19 @@ public class CacheConfig extends CachingConfigurerSupport {
                 .withInitialCacheConfigurations(singletonMap("permissionCache", defaultCacheConfig()))
                 .withInitialCacheConfigurations(singletonMap("dictCache", defaultCacheConfig()))
                 .withInitialCacheConfigurations(singletonMap("timerTaskCache", defaultCacheConfig()))
+                .withInitialCacheConfigurations(singletonMap("passwordRetryCache", defaultCacheConfig1()))
                 .transactionAware()
                 .build();
     }
 
     private RedisCacheConfiguration defaultCacheConfig() {
+        return RedisCacheConfiguration.defaultCacheConfig()
+                .prefixKeysWith("wayn")
+                .entryTtl(Duration.ofSeconds(expire * 2))
+                .disableCachingNullValues();
+    }
+
+    private RedisCacheConfiguration defaultCacheConfig1() {
         return RedisCacheConfiguration.defaultCacheConfig()
                 .prefixKeysWith("wayn")
                 .entryTtl(Duration.ofSeconds(expire))

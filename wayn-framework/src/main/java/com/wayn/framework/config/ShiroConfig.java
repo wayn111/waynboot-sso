@@ -140,7 +140,7 @@ public class ShiroConfig {
     @Bean
     public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        //设置realm.
+        // 设置realm
         securityManager.setRealm(ssoRealm());
         // 自定义缓存实现 使用redis
         securityManager.setCacheManager(rediscacheManager());
@@ -155,7 +155,6 @@ public class ShiroConfig {
         // 定义自己的的密码验证服务
         MyCredentialsMatcher credentialsMatcher = new MyCredentialsMatcher();
         Cache passwordRetryCache = cacheManager.getCache("passwordRetryCache");
-        assert passwordRetryCache != null;
         RedisCache targetCache = (RedisCache) ((TransactionAwareCacheDecorator) passwordRetryCache).getTargetCache();
         credentialsMatcher.setPasswordRetryCache(targetCache);
         credentialsMatcher.setRetryCount(retryCount);

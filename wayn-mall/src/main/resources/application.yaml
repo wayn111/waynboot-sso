@@ -35,6 +35,9 @@ spring:
     time-zone: GMT+8
   profiles:
     active: dev
+  servlet:
+    multipart:
+      max-file-size: 1MB
 
 # mybatis plus
 mybatis-plus:

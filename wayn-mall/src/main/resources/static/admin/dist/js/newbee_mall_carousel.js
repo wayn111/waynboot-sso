@@ -61,7 +61,7 @@ $(function () {
                 $("#carouselImg").attr("style", "width: 128px;height: 128px;display:block;");
                 return false;
             } else {
-                swalAlert.error("服务器内部错误");
+                swalAlert.error(r.msg);
             }
         }
     });

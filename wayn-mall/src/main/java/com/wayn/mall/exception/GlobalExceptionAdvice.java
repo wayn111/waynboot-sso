@@ -6,6 +6,7 @@ import com.wayn.mall.util.http.HttpUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
@@ -55,6 +56,26 @@ public class GlobalExceptionAdvice extends BaseController {
         return new ModelAndView("error/500", map);
     }
 
+    /**
+     * 处理文件上传过大异常
+     *
+     * @param e
+     * @param request
+     * @return
+     */
+    @ExceptionHandler({MaxUploadSizeExceededException.class})
+    public Object maxUploadSizeExceededExceptionException(MaxUploadSizeExceededException e, HttpServletRequest request) {
+        log.error(e.getMessage(), e);
+        return R.error("上传文件过大");
+    }
+
+    /**
+     * 全局异常处理
+     *
+     * @param e
+     * @param request
+     * @return
+     */
     @ExceptionHandler({Exception.class})
     public Object handleException(Exception e, HttpServletRequest request) {
         log.error(e.getMessage(), e);

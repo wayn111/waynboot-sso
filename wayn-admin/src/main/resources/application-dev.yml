@@ -6,16 +6,16 @@ spring:
         druid:
             # 主库数据源
             master:
-                url: jdbc:mysql://192.168.31.49:3306/waynboot?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+                url: jdbc:mysql://127.0.0.1:3306/waynboot?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
                 username: root
                 password: admin123
             # 从库数据源
             slave:
                 # 从数据源开关/默认关闭
                 enabled: false
-                url: 
-                username: 
-                password: 
+                url:
+                username:
+                password:
             # 初始连接数
             initialSize: 5
             # 最小连接池数量
@@ -35,7 +35,7 @@ spring:
             testWhileIdle: true
             testOnBorrow: false
             testOnReturn: false
-            webStatFilter: 
+            webStatFilter:
                 enabled: true
             statViewServlet:
                 enabled: true
@@ -43,8 +43,8 @@ spring:
                 allow:
                 url-pattern: /druid/*
                 # 控制台管理用户名和密码
-                login-username: 
-                login-password: 
+                login-username:
+                login-password:
             filter:
                 stat:
                     enabled: true
@@ -56,7 +56,7 @@ spring:
                     config:
                         multi-statement-allow: true
     redis:
-        host: 192.168.31.49
+        host: 127.0.0.1
         port: 6379
         timeout: 5000
         password:

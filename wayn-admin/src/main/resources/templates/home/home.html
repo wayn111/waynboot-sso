@@ -90,6 +90,9 @@
                        href="#"><i class="fa fa-bars"></i> </a>
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
+                    <li onclick="jump2NewbeeMall">
+                        <a title="Newbee商城"><i class="fa fa-male"></i> Newbee商城</a>
+                    </li>
                     <li onclick="fullScreen()">
                         <a title="全屏显示"><i class="fa fa-arrows-alt"></i> 全屏显示</a>
                     </li>
@@ -169,6 +172,10 @@
      */
     function fullScreen() {
         $("#wrapper").fullScreen();
+    }
+
+    function jump2NewbeeMall() {
+        window.location = "http://127.0.0.1:84/mall";
     }
 
     $(function () {

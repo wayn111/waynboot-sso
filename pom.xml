@@ -25,13 +25,13 @@
 		<xxl-sso.version>1.1.0</xxl-sso.version>
 		<shiro.version>1.6.0</shiro.version>
 		<thymeleaf.extras.shiro.version>2.0.0</thymeleaf.extras.shiro.version>
-		<mybatis.plus.version>3.4.0</mybatis.plus.version>
-		<druid.version>1.1.14</druid.version>
+		<mybatis.plus.version>3.4.1</mybatis.plus.version>
+		<druid.version>1.2.4</druid.version>
 		<bitwalker.version>1.19</bitwalker.version>
 		<kaptcha.version>2.3.2</kaptcha.version>
 		<swagger.version>2.9.2</swagger.version>
 		<pagehelper.boot.version>1.2.5</pagehelper.boot.version>
-		<fastjson.version>1.2.72</fastjson.version>
+		<fastjson.version>1.2.75</fastjson.version>
 		<oshi.version>3.9.1</oshi.version>
 		<commons.io.version>2.5</commons.io.version>
 		<commons.collections.version>3.2.2</commons.collections.version>

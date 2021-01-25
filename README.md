@@ -2,13 +2,13 @@
 
 ### 项目介绍
 基于SpringBoot，Shiro，Redis，Mybatis-Plus，SSO的多模块系统，包含了SSO单点登陆，
-通用后台管理，NewBee-mall商城，每日一文等多个模块，支持Shiro与SSO模块的集成，易于上手，学习，二次开发。
+通用后台管理，新蜂商城，每日一文等多个模块，支持Shiro与SSO模块的集成，易于上手，学习，二次开发。
 
 #### 主要特性
 - 项目按系统模块化，提升开发，测试效率
 - ssoserver为SSO模块，支持单点登录登出
 - admin模块支持Shiro + SSO使用
-- mall模块包含前台和后端，后端支持SSO使用
+- 新蜂商城包含前台和后端，后台系统支持SSO使用
 - 使用hessian作为各系统间rpc通信
 - 使用Mybatis-Plus作为数据层框架，代码简介高效
 - 页面模板使用thymeleaf，配置灵活

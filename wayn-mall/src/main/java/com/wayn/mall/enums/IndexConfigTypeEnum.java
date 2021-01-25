@@ -1,5 +1,8 @@
 package com.wayn.mall.enums;
 
+/**
+ * 首页配置枚举类
+ */
 public enum IndexConfigTypeEnum {
     DEFAULT(0, "DEFAULT"),
     INDEX_SEARCH_HOTS(1, "INDEX_SEARCH_HOTS"),

@@ -1,7 +1,8 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: _ctx + '/admin/carousels/list',
+        url: _ctx + 'admin/carousels/list',
         datatype: "json",
+        viewrecords: true,
         colModel: [
             {label: 'id', name: 'carouselId', index: 'carouselId', width: 50, key: true, hidden: true},
             {label: '轮播图', name: 'carouselUrl', index: 'carouselUrl', width: 180, formatter: coverImageFormatter},
@@ -23,7 +24,7 @@ $(function () {
             root: "records",
             page: "current",
             total: "pages",
-            records: "toal"
+            records: "total"
         },
         prmNames: {
             page: "pageNumber",
@@ -45,7 +46,7 @@ $(function () {
     });
 
     new AjaxUpload('#uploadCarouselImage', {
-        action: _ctx + '/common/upload',
+        action: _ctx + 'common/upload',
         name: 'file',
         autoSubmit: true,
         responseType: "json",
@@ -61,7 +62,7 @@ $(function () {
                 $("#carouselImg").attr("style", "width: 128px;height: 128px;display:block;");
                 return false;
             } else {
-                swalAlert.error(r.msg);
+                swalAlert.error("服务器内部错误");
             }
         }
     });
@@ -93,10 +94,10 @@ $('#saveButton').click(function () {
         "carouselRank": carouselRank,
         "redirectUrl": redirectUrl
     };
-    var url = _ctx + '/admin/carousels/save';
+    var url = _ctx + 'admin/carousels/save';
     var id = getSelectedRowWithoutAlert();
     if (id != null) {
-        url = _ctx + '/admin/carousels/update';
+        url = _ctx + 'admin/carousels/update';
         data = {
             "carouselId": id,
             "carouselUrl": carouselUrl,
@@ -132,7 +133,7 @@ function carouselEdit() {
         return;
     }
     //请求数据
-    $.get(_ctx + "/admin/carousels/info/" + id, function (r) {
+    $.get(_ctx + "admin/carousels/info/" + id, function (r) {
         if (r.code == 200 && r.map.data != null) {
             //填充数据至modal
             $("#carouselImg").attr("src", r.map.data.carouselUrl);
@@ -146,7 +147,6 @@ function carouselEdit() {
 }
 
 function deleteCarousel() {
-    debugger
     var ids = getSelectedRows();
     if (ids == null) {
         return;
@@ -161,7 +161,7 @@ function deleteCarousel() {
             if (flag) {
                 $.ajax({
                     type: "POST",
-                    url: _ctx + "/admin/carousels/delete",
+                    url: _ctx + "admin/carousels/delete",
                     contentType: "application/json",
                     data: JSON.stringify(ids),
                     success: function (r) {
@@ -180,14 +180,13 @@ function deleteCarousel() {
             }
         }
     )
-    ;
 }
 
 
 function reset() {
     $("#redirectUrl").val('##');
     $("#carouselRank").val(0);
-    $("#carouselImg").attr("src", _ctx + '/admin/dist/img/img-upload.png');
+    $("#carouselImg").attr("src", _ctx + 'admin/dist/img/img-upload.png');
     $("#carouselImg").attr("style", "height: 64px;width: 64px;display:block;");
     $('#edit-error-msg').css("display", "none");
 }

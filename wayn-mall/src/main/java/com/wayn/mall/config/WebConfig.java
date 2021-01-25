@@ -1,9 +1,11 @@
 package com.wayn.mall.config;
 
-import com.wayn.mall.constant.Constants;
+import com.wayn.mall.intercepter.AdminLoginInterceptor;
 import com.wayn.mall.intercepter.MallLoginValidateIntercepter;
 import com.wayn.mall.intercepter.MallShopCartNumberInterceptor;
+import com.wayn.mall.intercepter.RepeatSubmitInterceptor;
 import com.wayn.ssocore.filter.SsoFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -20,14 +22,23 @@ import java.util.LinkedHashMap;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
+    @Value("${wayn.uploadDir}")
+    private String uploadDir;
+
     @Value("${wayn.ssoServerUrl}")
     private String ssoServerUrl;
 
     @Value("${wayn.xssFilter.excludeUrls}")
     private String excludeUrls;
 
-    @Value("${wayn.uploadDir}")
-    private String uploadDir;
+    @Autowired
+    private RepeatSubmitInterceptor repeatSubmitInterceptor;
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addRedirectViewController("/", "/index");
+    }
+
 
     @Bean
     public FilterRegistrationBean filterRegistrationBean() {
@@ -45,15 +56,10 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
     @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addRedirectViewController("/", "/index");
-    }
-
-    @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         /** 本地文件上传路径 */
         registry.addResourceHandler("/upload/**").addResourceLocations("file:" + uploadDir + "/");
-        registry.addResourceHandler("/goods-img/**").addResourceLocations("file:" + Constants.FILE_UPLOAD_DIC);
+        registry.addResourceHandler("/goods-img/**").addResourceLocations("file:" + uploadDir + "/");
     }
 
     @Override
@@ -65,11 +71,16 @@ public class WebConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/index")
                 .excludePathPatterns("/search")
                 .excludePathPatterns("/coupon")
+                .excludePathPatterns("/goods/**")
+                .excludePathPatterns("/seckill/list")
+                .excludePathPatterns("/seckill/detail/*")
+                .excludePathPatterns("/seckill/time/now")
+                .excludePathPatterns("/seckill/*/exposer")
                 .excludePathPatterns("/register")
                 .excludePathPatterns("/upload/**")
                 .excludePathPatterns("/goods-img/**")
                 .excludePathPatterns("/common/**")
-                .excludePathPatterns("/mall/**")
+                .excludePathPatterns("/com/wayn/mall/**")
                 .excludePathPatterns("/admin/**");
 
         // 购物车中的数量统一处理
@@ -77,14 +88,23 @@ public class WebConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/admin/**")
                 .excludePathPatterns("/register")
                 .excludePathPatterns("/login")
-                .excludePathPatterns("/logout");
+                .excludePathPatterns("/logout")
+                .excludePathPatterns("/common/**")
+                .excludePathPatterns("/**/*.jpg")
+                .excludePathPatterns("/**/*.png")
+                .excludePathPatterns("/**/*.gif")
+                .excludePathPatterns("/**/*.map")
+                .excludePathPatterns("/**/*.css")
+                .excludePathPatterns("/**/*.js");
 
         // 添加一个拦截器，拦截以/admin为前缀的url路径（后台登陆拦截）
-        /*registry.addInterceptor(new AdminLoginInterceptor())
+        registry.addInterceptor(new AdminLoginInterceptor())
                 .addPathPatterns("/admin/**")
                 .excludePathPatterns("/admin/login")
                 .excludePathPatterns("/admin/dist/**")
-                .excludePathPatterns("/admin/plugins/**");*/
+                .excludePathPatterns("/admin/plugins/**");
+
+        registry.addInterceptor(repeatSubmitInterceptor).addPathPatterns("/**");
     }
 
     @Bean

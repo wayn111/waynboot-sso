@@ -1,6 +1,5 @@
 package com.wayn.mall.util.http;
 
-
 import com.wayn.mall.constant.Constants;
 
 import javax.servlet.http.Cookie;

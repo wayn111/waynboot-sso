@@ -28,19 +28,21 @@
                 <div class="login_main center">
                     <div class="login-info">手机号:&nbsp;<input class="login-info-input" type="text" name="loginName"
                                                              id="loginName"
+                                                             value="13700002703"
                                                              placeholder="请输入你的手机号"/>
                     </div>
                     <div class="login-info">密&nbsp;&nbsp;&nbsp;&nbsp;码:&nbsp;<input class="login-info-input"
                                                                                     id="password"
                                                                                     type="password"
                                                                                     name="password"
+                                                                                    value="123456"
                                                                                     placeholder="请输入你的密码"/></div>
                     <div class="login-info">
                         验证码:&nbsp;
                         <input class="login-info-input verify-code" type="text" name="verifyCode"
                                placeholder="请输入验证码" id="verifyCode"/>
                         <img alt="单击图片刷新！" style="top: 14px;position: relative;" th:src="@{/common/captcha}"
-                             th:onclick="this.src=_ctx + '/common/captcha?d='+new Date()*1">
+                             th:onclick="this.src=_ctx + 'common/captcha?d='+new Date()*1">
                     </div>
                 </div>
                 <div class="login_submit">
@@ -78,16 +80,25 @@
             });
             return false;
         }
-        //验证
+        var url = _ctx + 'login?destPath=';
+        // 添加目标地址
+        var destPath = window.location.href.split('?')[1];
+        if (destPath) {
+            url = url + destPath;
+        }
+        // 验证
         var params = $("#loginForm").serialize();
-        var url = _ctx + '/login';
         $.ajax({
             type: 'POST',//方法类型
             url: url,
             data: params,
             success: function (result) {
                 if (result.code == 200) {
-                    window.location.href = _ctx + '/index';
+                    if (result.map.destPath) {
+                        window.location.href = _ctx + result.map.destPath;
+                    } else {
+                        window.location.href = _ctx + 'index';
+                    }
                 } else {
                     swal(result.msg, {
                         icon: "error",

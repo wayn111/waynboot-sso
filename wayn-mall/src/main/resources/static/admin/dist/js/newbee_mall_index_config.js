@@ -2,8 +2,9 @@ $(function () {
     var configType = $("#configType").val();
 
     $("#jqGrid").jqGrid({
-        url: _ctx + '/admin/indexConfigs/list?configType=' + configType,
+        url: _ctx + 'admin/indexConfigs/list?configType=' + configType,
         datatype: "json",
+        viewrecords: true,
         colModel: [
             {label: 'id', name: 'configId', index: 'configId', width: 50, key: true, hidden: true},
             {label: '配置项名称', name: 'configName', index: 'configName', width: 180},
@@ -26,7 +27,7 @@ $(function () {
             root: "records",
             page: "current",
             total: "pages",
-            records: "toal"
+            records: "total"
         },
         prmNames: {
             page: "pageNumber",
@@ -78,10 +79,10 @@ $('#saveButton').click(function () {
             "goodsId": goodsId,
             "configRank": configRank
         };
-        var url = _ctx + '/admin/indexConfigs/save';
+        var url = _ctx + 'admin/indexConfigs/save';
         var id = getSelectedRowWithoutAlert();
         if (id != null) {
-            url = _ctx + '/admin/indexConfigs/update';
+            url = _ctx + 'admin/indexConfigs/update';
             data = {
                 "configId": id,
                 "configName": configName,
@@ -150,7 +151,7 @@ function deleteConfig () {
             if (flag) {
                 $.ajax({
                     type: "POST",
-                    url: _ctx + "/admin/indexConfigs/delete",
+                    url: _ctx + "admin/indexConfigs/delete",
                     contentType: "application/json",
                     data: JSON.stringify(ids),
                     success: function (r) {
@@ -169,7 +170,6 @@ function deleteConfig () {
             }
         }
     )
-    ;
 }
 
 

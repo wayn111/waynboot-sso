@@ -1,7 +1,8 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: _ctx + '/admin/goods/list',
+        url: _ctx + 'admin/goods/list',
         datatype: "json",
+        viewrecords: true,
         colModel: [
             {label: '商品编号', name: 'goodsId', index: 'goodsId', width: 60, key: true},
             {label: '商品名', name: 'goodsName', index: 'goodsName', width: 120},
@@ -27,12 +28,15 @@ $(function () {
         rownumWidth: 20,
         autowidth: true,
         multiselect: true,
+        sortable: true,
+        sortname: 'createTime', //设置默认的排序列
+        sortorder: 'desc',
         pager: "#jqGridPager",
         jsonReader: {
             root: "records",
             page: "current",
             total: "pages",
-            records: "toal"
+            records: "total"
         },
         prmNames: {
             page: "pageNumber",
@@ -72,12 +76,14 @@ $(function () {
  * jqGrid重新加载
  */
 function reload() {
-    var goodsName = $('#gooodsName').val() || '';
+    var goodsId = $('#goodsId').val() || '';
+    var goodsName = $('#goodsName').val() || '';
     var goodsIntro = $('#goodsIntro').val() || '';
     var goodsSellStatus = $('#goodsSellStatus').val() || '';
     $("#jqGrid").jqGrid('setGridParam', {
         page: 1,
         postData: {
+            goodsId: goodsId,
             goodsName: goodsName,
             goodsIntro: goodsIntro,
             goodsSellStatus: goodsSellStatus
@@ -89,7 +95,7 @@ function reload() {
  * 添加商品
  */
 function addGoods() {
-    window.location.href = _ctx + "/admin/goods/add";
+    window.location.href = _ctx + "admin/goods/add";
 }
 
 /**
@@ -100,14 +106,13 @@ function editGoods() {
     if (id == null) {
         return;
     }
-    window.location.href = _ctx + "/admin/goods/edit/" + id;
+    window.location.href = _ctx + "admin/goods/edit/" + id;
 }
 
 /**
  * 上架
  */
 function putUpGoods() {
-    debugger
     var ids = getSelectedRows();
     if (ids == null) {
         return;
@@ -122,7 +127,7 @@ function putUpGoods() {
             if (flag) {
                 $.ajax({
                     type: "PUT",
-                    url: _ctx + "/admin/goods/status/0",
+                    url: _ctx + "admin/goods/status/0",
                     contentType: "application/json",
                     data: JSON.stringify(ids),
                     success: function (r) {
@@ -161,7 +166,7 @@ function putDownGoods() {
             if (flag) {
                 $.ajax({
                     type: "PUT",
-                    url: _ctx + "/admin/goods/status/1",
+                    url: _ctx + "admin/goods/status/1",
                     contentType: "application/json",
                     data: JSON.stringify(ids),
                     success: function (r) {

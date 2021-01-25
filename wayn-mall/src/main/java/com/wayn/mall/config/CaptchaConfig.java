@@ -19,21 +19,21 @@ public class CaptchaConfig {
         // 是否有边框 默认为true 我们可以自己设置yes，no
         properties.setProperty(KAPTCHA_BORDER, "no");
         // 验证码文本生成器
-        properties.setProperty(KAPTCHA_TEXTPRODUCER_IMPL, "com.wayn.mall.config.TextCreator");
+        properties.setProperty(KAPTCHA_TEXTPRODUCER_IMPL, "ltd.newbee.com.wayn.mall.config.TextCreator");
         // 验证码文本字符颜色 默认为Color.BLACK
         properties.setProperty(KAPTCHA_TEXTPRODUCER_FONT_COLOR, "blue");
         // 验证码图片宽度 默认为200
-        properties.setProperty(KAPTCHA_IMAGE_WIDTH, "100");
+        properties.setProperty(KAPTCHA_IMAGE_WIDTH, "130");
         // 验证码图片高度 默认为50
-        properties.setProperty(KAPTCHA_IMAGE_HEIGHT, "37");
+        properties.setProperty(KAPTCHA_IMAGE_HEIGHT, "40");
         // 验证码文本字符大小 默认为40
-        properties.setProperty(KAPTCHA_TEXTPRODUCER_FONT_SIZE, "25");
+        properties.setProperty(KAPTCHA_TEXTPRODUCER_FONT_SIZE, "35");
         // 验证码文本字符长度 默认为4
         properties.setProperty(KAPTCHA_TEXTPRODUCER_CHAR_LENGTH, "4");
         // 验证码文本字符间隔 默认为2
-        properties.setProperty(KAPTCHA_TEXTPRODUCER_CHAR_SPACE, "6");
+        properties.setProperty(KAPTCHA_TEXTPRODUCER_CHAR_SPACE, "8");
         // 验证码文本字符来源
-        properties.setProperty(KAPTCHA_TEXTPRODUCER_CHAR_STRING, "abcdefghijklmnopqrstuvwxyz");
+        properties.setProperty(KAPTCHA_TEXTPRODUCER_CHAR_STRING, "123456789");
         // KAPTCHA_SESSION_KEY
         properties.setProperty(KAPTCHA_SESSION_CONFIG_KEY, "kaptcha.code");
         // 噪点设置

@@ -1,7 +1,8 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: _ctx + '/admin/orders/list',
+        url: _ctx + 'admin/orders/list',
         datatype: "json",
+        viewrecords: true,
         colModel: [
             {label: 'id', name: 'orderId', index: 'orderId', width: 50, key: true, hidden: true},
             {label: '订单号', name: 'orderNo', index: 'orderNo', width: 120},
@@ -29,7 +30,7 @@ $(function () {
             root: "records",
             page: "current",
             total: "pages",
-            records: "toal"
+            records: "total"
         },
         prmNames: {
             page: "pageNumber",
@@ -102,9 +103,7 @@ $(function () {
         showDropdowns: true,
         startDate: moment().startOf('hour'),
         endDate: moment().startOf('hour').add(12, 'hour'),
-        locale: {
-            format: 'YYYY/MM/DD'
-        }
+        locale: datepickerLocale()
     });
 
     $('#createTime').on('apply.daterangepicker', function (ev, picker) {
@@ -140,10 +139,10 @@ function reload() {
  * @param orderId
  */
 function openOrderItems(orderId) {
-    $('.modal-title').html('订单详情');
+    $('#orderItemModalLabel').html('订单详情');
     $.ajax({
         type: 'GET',//方法类型
-        url: _ctx + '/admin/orders/order-items/' + orderId,
+        url: _ctx + 'admin/orders/order-items/' + orderId,
         contentType: 'application/json',
         success: function (result) {
             if (result.code == 200) {
@@ -153,6 +152,9 @@ function openOrderItems(orderId) {
                     itemString += result.map.data[i].goodsName + ' x '
                         + result.map.data[i].goodsCount + ' 商品编号 '
                         + result.map.data[i].goodsId + ";<br>";
+                }
+                if (result.map.discount) {
+                    itemString += '<br> 满减：' + result.map.discount + '.00元';
                 }
                 $("#orderItemString").html(itemString);
             } else {
@@ -175,7 +177,7 @@ function openOrderItems(orderId) {
  */
 function openExpressInfo(orderId) {
     var rowData = $("#jqGrid").jqGrid("getRowData", orderId);
-    $('.modal-title').html('收件信息');
+    $('#expressInfoModalLabel').html('收件信息');
     $('#expressInfoModal').modal('show');
     $("#userAddressInfo").html(rowData.userAddress);
 }
@@ -190,7 +192,7 @@ function orderEdit() {
         return;
     }
     var rowData = $("#jqGrid").jqGrid("getRowData", id);
-    $('.modal-title').html('订单编辑');
+    $('#orderInfoModalLabel').html('订单编辑');
     $('#orderInfoModal').modal('show');
     $("#orderId").val(id);
     $("#userAddress").val(rowData.userAddress);
@@ -203,7 +205,7 @@ $('#saveButton').click(function () {
     var totalPrice = $("#totalPrice").val();
     var userAddress = $("#userAddress").val();
     var id = getSelectedRowWithoutAlert();
-    var url = _ctx + '/admin/orders/update';
+    var url = _ctx + 'admin/orders/update';
     var data = {
         "orderId": id,
         "totalPrice": totalPrice,
@@ -273,7 +275,7 @@ function orderCheckDone() {
             if (flag) {
                 $.ajax({
                     type: "POST",
-                    url: _ctx + "/admin/orders/checkDone",
+                    url: _ctx + "admin/orders/checkDone",
                     contentType: "application/json",
                     data: JSON.stringify(ids),
                     success: function (r) {
@@ -331,7 +333,7 @@ function orderCheckOut() {
             if (flag) {
                 $.ajax({
                     type: "POST",
-                    url: _ctx + "/admin/orders/checkOut",
+                    url: _ctx + "admin/orders/checkOut",
                     contentType: "application/json",
                     data: JSON.stringify(ids),
                     success: function (r) {
@@ -367,7 +369,7 @@ function closeOrder() {
             if (flag) {
                 $.ajax({
                     type: "POST",
-                    url: _ctx + "/admin/orders/close",
+                    url: _ctx + "admin/orders/close",
                     contentType: "application/json",
                     data: JSON.stringify(ids),
                     success: function (r) {
@@ -386,7 +388,6 @@ function closeOrder() {
             }
         }
     )
-    ;
 }
 
 

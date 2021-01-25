@@ -1,8 +1,8 @@
 package com.wayn.mall.controller;
 
 import com.google.code.kaptcha.Producer;
-import com.wayn.mall.base.BaseController;
 import com.wayn.mall.constant.Constants;
+import com.wayn.mall.controller.base.BaseController;
 import com.wayn.mall.exception.BusinessException;
 import com.wayn.mall.util.R;
 import com.wayn.mall.util.file.FileUploadUtil;
@@ -96,7 +96,7 @@ public class CommonController extends BaseController {
 
             String capText = producer.createText();
             HttpSession session = request.getSession();
-            // 将验证码存入shiro 登录用户的session
+            //将验证码存入shiro 登录用户的session
             session.setAttribute(Constants.MALL_VERIFY_CODE_KEY, capText);
             BufferedImage image = producer.createImage(capText);
             ImageIO.write(image, "jpg", out);

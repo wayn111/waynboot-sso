@@ -2,14 +2,16 @@ package com.wayn.mall.controller.mall;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.wayn.mall.base.BaseController;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.wayn.mall.constant.Constants;
-import com.wayn.mall.controller.vo.MallUserVO;
-import com.wayn.mall.entity.MallUser;
-import com.wayn.mall.service.MallUserService;
+import com.wayn.mall.controller.base.BaseController;
+import com.wayn.mall.core.entity.MallUser;
+import com.wayn.mall.core.entity.vo.MallUserVO;
+import com.wayn.mall.core.service.MallUserService;
+import com.wayn.mall.exception.BusinessException;
 import com.wayn.mall.util.R;
+import com.wayn.mall.util.http.HttpUtil;
 import com.wayn.mall.util.security.Md5Utils;
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +41,10 @@ public class MallUserController extends BaseController {
     }
 
     @GetMapping("/login")
-    public String loginPage() {
+    public String loginPage(HttpServletRequest request) {
+        if (HttpUtil.isAjax(request)) {
+            throw new BusinessException("请先登陆！");
+        }
         return "mall/login";
     }
 
@@ -47,7 +52,9 @@ public class MallUserController extends BaseController {
     @PostMapping("/login")
     public R doLogin(MallUserVO mallUserVO,
                      @RequestParam("verifyCode") String verifyCode,
+                     @RequestParam("destPath") String destPath,
                      HttpSession session) {
+        R success = R.success();
         String kaptchaCode = (String) session.getAttribute(Constants.MALL_VERIFY_CODE_KEY);
         if (!StringUtils.equalsIgnoreCase(verifyCode, kaptchaCode)) {
             return R.error("验证码错误");
@@ -63,7 +70,10 @@ public class MallUserController extends BaseController {
         }
         BeanUtils.copyProperties(user, mallUserVO);
         session.setAttribute(Constants.MALL_USER_SESSION_KEY, mallUserVO);
-        return R.success();
+        if (StringUtils.isNotEmpty(destPath) && StringUtils.contains(destPath, "=")) {
+            success.add("destPath", destPath.split("=")[1].substring(1));
+        }
+        return success;
     }
 
     @GetMapping("/register")
@@ -83,21 +93,18 @@ public class MallUserController extends BaseController {
         }
         List<MallUser> list = mallUserService.list(new QueryWrapper<MallUser>()
                 .eq("login_name", loginName));
-        if (CollectionUtils.isNotEmpty(list) && list.size() > 0) {
+        if (CollectionUtils.isNotEmpty(list) && list.size() != 1) {
             return R.error("该账户名已存在");
         }
-        MallUser mallUser = new MallUser();
-        mallUser.setLoginName(loginName);
-        mallUser.setPasswordMd5(Md5Utils.hash(password));
-        mallUserService.save(mallUser);
-        return R.success();
+        return R.result(mallUserService.register(loginName, password));
     }
-
 
     @PostMapping("/personal/updateInfo")
     @ResponseBody
     public R updateInfo(@RequestBody MallUser mallUser) {
-        mallUserService.updateById(mallUser);
+        if (!mallUserService.updateById(mallUser)) {
+            throw new BusinessException("修改用户信息异常");
+        }
         MallUser user = mallUserService.getById(mallUser.getUserId());
         MallUserVO mallUserVO = new MallUserVO();
         BeanUtils.copyProperties(user, mallUserVO);

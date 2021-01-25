@@ -192,6 +192,10 @@
                                         <th>运费：</th>
                                         <td><span class="num">0</span>元</td>
                                     </tr>
+                                    <tr th:if="${discount != null}">
+                                        <th>优惠卷抵扣：</th>
+                                        <td><span class="num" id="discount" th:text="${discount}">10.00</span>元</td>
+                                    </tr>
                                     <tr>
                                         <th class="total">商品总价：</th>
                                         <td class="total"><span class="num"
@@ -229,7 +233,7 @@
                 if (flag) {
                     $.ajax({
                         type: 'PUT',
-                        url: _ctx + '/orders/' + orderNo + '/cancel',
+                        url: _ctx + 'orders/' + orderNo + '/cancel',
                         success: function (result) {
                             if (result.code == 200) {
                                 window.location.reload();
@@ -253,14 +257,14 @@
 
     function payOrder() {
         var orderNo = $("#orderNoValue").val();
-        window.location.href = _ctx + '/selectPayType?orderNo=' + orderNo;
+        window.location.href = _ctx + 'selectPayType?orderNo=' + orderNo;
     }
 
     function finishOrder() {
         var orderNo = $("#orderNoValue").val();
         $.ajax({
             type: 'PUT',
-            url: _ctx + '/orders/' + orderNo + '/finish',
+            url: _ctx + 'orders/' + orderNo + '/finish',
             success: function (result) {
                 if (result.code == 200) {
                     window.location.reload();

@@ -20,7 +20,7 @@ spring:
     cache: false
   # redis配置
   redis:
-    host: 127.0.0.1
+    host: 192.168.31.49
     port: 6379
     timeout: 5000
     password:

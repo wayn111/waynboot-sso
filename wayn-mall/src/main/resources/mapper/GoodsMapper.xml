@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wayn.mall.dao.GoodsDao">
+<mapper namespace="com.wayn.mall.core.dao.GoodsDao">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.wayn.mall.entity.Goods">
+    <resultMap id="BaseResultMap" type="com.wayn.mall.core.entity.Goods">
         <id column="goods_id" property="goodsId"/>
         <result column="goods_name" property="goodsName"/>
         <result column="goods_intro" property="goodsIntro"/>
@@ -23,7 +23,7 @@
     </resultMap>
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="SearchVOResultMap" type="com.wayn.mall.controller.vo.SearchPageGoodsVO">
+    <resultMap id="SearchVOResultMap" type="com.wayn.mall.core.entity.vo.SearchPageGoodsVO">
         <id column="goods_id" property="goodsId"/>
         <result column="goods_name" property="goodsName"/>
         <result column="goods_intro" property="goodsIntro"/>
@@ -39,9 +39,18 @@
         from tb_newbee_mall_goods_info t
     </sql>
 
-    <select id="selectListPage" parameterType="com.wayn.mall.entity.Goods" resultMap="BaseResultMap">
+    <update id="addStock">
+        update tb_newbee_mall_goods_info
+        set stock_num = stock_num + #{number}, update_time = now()
+        where goods_id = #{goodsId}
+    </update>
+
+    <select id="selectListPage" parameterType="com.wayn.mall.core.entity.Goods" resultMap="BaseResultMap">
         <include refid="selectGoods"></include>
         <where>
+            <if test="goods.goodsId!=null">
+                and goods_id = #{goods.goodsId}
+            </if>
             <if test="goods.goodsCategoryId!=null">
                 and goods_category_id = #{goods.goodsCategoryId}
             </if>
@@ -57,7 +66,7 @@
         </where>
     </select>
 
-    <select id="findMallGoodsListBySearch" parameterType="com.wayn.mall.controller.vo.SearchObjVO"
+    <select id="findMallGoodsListBySearch" parameterType="com.wayn.mall.core.entity.vo.SearchObjVO"
             resultMap="SearchVOResultMap">
         <include refid="selectGoods"></include>
         <where>

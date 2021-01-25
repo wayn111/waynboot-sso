@@ -1,7 +1,8 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: _ctx + '/admin/users/list',
+        url: _ctx + 'admin/users/list',
         datatype: "json",
+        viewrecords: true,
         colModel: [
             {label: 'id', name: 'userId', index: 'userId', width: 50, key: true, hidden: true},
             {label: '昵称', name: 'nickName', index: 'nickName', width: 180},
@@ -24,7 +25,7 @@ $(function () {
             root: "records",
             page: "current",
             total: "pages",
-            records: "toal"
+            records: "total"
         },
         prmNames: {
             page: "pageNumber",
@@ -96,7 +97,7 @@ function lockUser(lockStatus) {
             if (flag) {
                 $.ajax({
                     type: "POST",
-                    url: _ctx + "/admin/users/lock/" + lockStatus,
+                    url: _ctx + "admin/users/lock/" + lockStatus,
                     contentType: "application/json",
                     data: JSON.stringify(ids),
                     success: function (r) {

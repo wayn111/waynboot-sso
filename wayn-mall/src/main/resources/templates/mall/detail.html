@@ -34,13 +34,15 @@
             <div class="h3 ml20 mt20" th:text="${goodsDetail.goodsName}">NewBeeMall</div>
             <div class="sub_title mr40 ml20 mt10" th:text="${goodsDetail.goodsIntro}">NewBeeMall</div>
             <div class="item_price mr40 ml20 mt10">
-                <th:block th:text="${goodsDetail.originalPrice}+'.00 元'"></th:block>
+                <th:block th:text="${goodsDetail.sellingPrice}+'.00 元'"></th:block>
                 <del>
-                    <th:block th:text="${goodsDetail.sellingPrice}+'.00 元'"></th:block>
+                    <th:block th:text="${goodsDetail.originalPrice}+'.00 元'"></th:block>
                 </del>
             </div>
 
             <div class="order">
+                <input type="hidden" id="cartItemId" th:value="${cartItemId}">
+                <input type="hidden" id="goodsCount" th:value="${goodsCount + 1}">
                 <input class="car" type="button" th:onclick="'saveAndGoCart('+${goodsDetail.goodsId}+')'" value="立即选购"/>
                 <input class="car" type="button" th:onclick="'saveToCart('+${goodsDetail.goodsId}+')'" value="加入购物车"/>
             </div>
@@ -83,14 +85,16 @@
      * 添加到购物车
      */
     function saveToCart(id) {
-        var goodsCount = 1;
+        var goodsCount = $('#goodsCount').val();
+        var cartItemId = $('#cartItemId').val();
         var data = {
             "goodsId": id,
-            "goodsCount": goodsCount
+            "goodsCount": goodsCount,
+            "cartItemId": cartItemId
         };
         $.ajax({
             type: 'POST',
-            url: _ctx + '/shop-cart',
+            url: _ctx + 'shopCart',
             contentType: 'application/json',
             data: JSON.stringify(data),
             success: function (result) {
@@ -123,14 +127,16 @@
      * 添加到购物车并跳转至购物车页面
      */
     function saveAndGoCart(id) {
-        var goodsCount = 1;
+        var goodsCount = $('#goodsCount').val();
+        var cartItemId = $('#cartItemId').val();
         var data = {
             "goodsId": id,
-            "goodsCount": goodsCount
+            "goodsCount": goodsCount,
+            "cartItemId": cartItemId
         };
         $.ajax({
             type: 'POST',
-            url: _ctx + '/shop-cart',
+            url: _ctx + 'shopCart',
             contentType: 'application/json',
             data: JSON.stringify(data),
             success: function (result) {
@@ -145,7 +151,7 @@
                         dangerMode: false,
                     }).then((flag) => {
                             if (flag) {
-                                window.location.href = _ctx + '/shop-cart';
+                                window.location.href = _ctx + 'shopCart';
                             }
                         }
                     );

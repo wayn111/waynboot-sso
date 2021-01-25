@@ -15,7 +15,7 @@ html { overflow-x:hidden; }
 }
 
 .main-footer {
-    padding: 7px;
+    padding: 7px 20px;
     color: #444;
     border-top: 1px solid #eee;
 }
@@ -43,7 +43,7 @@ tbody > tr > th {font-weight: normal; }
 .panel .table { margin:0 0; }
 .panel .pagination { margin:0; }
 .panel-default>.panel-heading {background-color: #f5f5f5;}
-.row{
+.container-fluid > .row{
 	border-top: 1px solid #ddd;
 	margin:0;
 	padding:20px 2px 0px 2px;
@@ -87,7 +87,7 @@ ul.thumbnails.image_picker_selector li .thumbnail.selected {
     border-bottom: 1px rgba(0,0,0,.125)solid;
 }
 .m-l {
-    margin-left: 15px;
+    margin-left: 8px;
 }
 
 .w-210 {

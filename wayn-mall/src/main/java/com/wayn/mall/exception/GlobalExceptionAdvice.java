@@ -1,11 +1,9 @@
 package com.wayn.mall.exception;
 
-import com.wayn.mall.base.BaseController;
+import com.wayn.mall.controller.base.BaseController;
 import com.wayn.mall.util.R;
 import com.wayn.mall.util.http.HttpUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
@@ -23,8 +21,6 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionAdvice extends BaseController {
 
-    @Autowired
-    private Environment env;
 
     /**
      * 处理404异常
@@ -61,21 +57,20 @@ public class GlobalExceptionAdvice extends BaseController {
     }
 
     /**
-     * 处理文件上传过大异常
+     * 处理文件上传过大bug
      *
      * @param e
      * @param request
      * @return
      */
     @ExceptionHandler({MaxUploadSizeExceededException.class})
-    public Object maxUploadSizeExceededExceptionException(MaxUploadSizeExceededException e, HttpServletRequest request) {
+    public Object handleBusinessException(MaxUploadSizeExceededException e, HttpServletRequest request) {
         log.error(e.getMessage(), e);
-        String uploadFileLimit = env.getProperty("spring.servlet.multipart.max-file-size");
-        return R.error("上传文件不能超过" + uploadFileLimit);
+        return R.error(e.getMessage());
     }
 
     /**
-     * 全局异常处理
+     * 处理全局异常
      *
      * @param e
      * @param request

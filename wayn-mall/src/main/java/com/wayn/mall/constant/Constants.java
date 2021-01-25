@@ -2,8 +2,6 @@ package com.wayn.mall.constant;
 
 public class Constants {
 
-    public static final String FILE_UPLOAD_DIC = "D:\\upload\\";//上传文件的默认url前缀，根据部署设置自行修改
-
     public static final Byte CATEGORY_LEVEL_ONE = 1;
     public static final Byte CATEGORY_LEVEL_TWO = 2;
     public static final Byte CATEGORY_LEVEL_THREE = 3;
@@ -31,14 +29,6 @@ public class Constants {
      * 字符串表示true
      */
     public static final String TRUE = "true";
-    /**
-     * 操作状态，成功
-     */
-    public static final Integer OPERATE_SUCCESS = 0;
-    /**
-     * 操作状态，失败
-     */
-    public static final Integer OPERATE_FAIL = 1;
 
     /**
      * 当前页
@@ -61,4 +51,37 @@ public class Constants {
     public static String SORT_ORDER = "sortOrder";
     public static String ORDER_DESC = "desc";
     public static String SORT_ASC = "asc";
+
+    /**
+     * 秒杀执行盐值
+     */
+    public static final String SECKILL_EXECUTE_SALT = "qwe";
+    /**
+     * 秒杀下单盐值
+     */
+    public static final String SECKILL_ORDER_SALT = "asd";
+
+    /**
+     * 秒杀商品库存缓存
+     */
+    public static final String SECKILL_GOODS_STOCK_KEY = "seckill_goods_stock:";
+
+    /**
+     * 秒杀商品缓存
+     */
+    public static final String SECKILL_KEY = "seckill:";
+    /**
+     * 秒杀商品详情页面缓存
+     */
+    public static final String SECKILL_GOODS_DETAIL_HTML = "seckill_goods_detail_html:";
+    /**
+     * 秒杀商品列表页面缓存
+     */
+    public static final String SECKILL_GOODS_LIST_HTML = "seckill_goods_list_html:";
+
+    /**
+     * 秒杀成功的用户set缓存
+     */
+    public static final String SECKILL_SUCCESS_USER_ID = "seckill_success_user_id:";
+
 }

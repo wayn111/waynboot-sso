@@ -6,9 +6,10 @@ server:
     # tomcat的URI编码
     uri-encoding: UTF-8
     # tomcat最大线程数，默认为200
-    max-threads: 300
     # Tomcat启动初始化的线程数，默认值25
-    min-spare-threads: 30
+    threads:
+      max: 300
+      min-spare: 30
 
 # 日志配置
 logging:

@@ -34,11 +34,6 @@ public class WebConfig implements WebMvcConfigurer {
     @Autowired
     private RepeatSubmitInterceptor repeatSubmitInterceptor;
 
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addRedirectViewController("/", "/index");
-    }
-
 
     @Bean
     public FilterRegistrationBean filterRegistrationBean() {
@@ -53,6 +48,11 @@ public class WebConfig implements WebMvcConfigurer {
         linkedHashMap.put("excludeUrls", excludeUrls);
         bean.setInitParameters(linkedHashMap);
         return bean;
+    }
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addRedirectViewController("/", "/index");
     }
 
     @Override
@@ -80,7 +80,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/upload/**")
                 .excludePathPatterns("/goods-img/**")
                 .excludePathPatterns("/common/**")
-                .excludePathPatterns("/com/wayn/mall/**")
+                .excludePathPatterns("/mall/**")
                 .excludePathPatterns("/admin/**");
 
         // 购物车中的数量统一处理

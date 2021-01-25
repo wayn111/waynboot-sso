@@ -59,7 +59,7 @@ public class MallShopCatController extends BaseController {
         request.setAttribute("itemsTotal", itemsTotal);
         request.setAttribute("priceTotal", priceTotal);
         request.setAttribute("myShoppingCartItems", collect);
-        return "com.wayn.mall/shop-cat";
+        return "mall/shop-cat";
     }
 
     @GetMapping("shopCart/settle")

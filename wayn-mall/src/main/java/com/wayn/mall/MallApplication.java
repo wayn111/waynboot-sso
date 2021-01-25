@@ -3,15 +3,9 @@ package com.wayn.mall;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-/**
- * @author 13
- * @qq交流群 796794009
- * @email 2449207463@qq.com
- * @link https://github.com/newbee-ltd
- */
 @SpringBootApplication
-public class NewBeeMallApplication {
+public class MallApplication {
     public static void main(String[] args) {
-        SpringApplication.run(NewBeeMallApplication.class, args);
+        SpringApplication.run(MallApplication.class, args);
     }
 }

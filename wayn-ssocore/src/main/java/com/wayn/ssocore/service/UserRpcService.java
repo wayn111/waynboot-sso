@@ -6,7 +6,6 @@ public interface UserRpcService {
 
     SsoUser loginValidate(String username, String password);
 
-
     boolean updatePassword(String userId, String password);
 
     boolean updateUserName(String userId, String userName);

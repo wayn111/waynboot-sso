@@ -48,3 +48,17 @@ spring:
                 wall:
                     config:
                         multi-statement-allow: true
+    redis:
+        host: localhost
+        port: 1688
+        timeout: 5000
+        password: admin@@123456
+        databaseIndex: 4
+        expire: 400
+        maxTotal: 50000
+        jedis:
+            pool:
+                max-active: 50
+                max-idle: 100
+                min-idle: 10
+                max-wait: 2000

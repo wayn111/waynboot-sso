@@ -327,7 +327,7 @@ public class MallOrderController extends BaseController {
         if (coupon != null) {
             request.setAttribute("discount", coupon.getDiscount());
         }
-        return "com/wayn/mall/order-detail";
+        return "/mall/order-detail";
     }
 
 }

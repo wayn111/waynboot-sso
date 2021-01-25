@@ -19,7 +19,7 @@ public class CaptchaConfig {
         // 是否有边框 默认为true 我们可以自己设置yes，no
         properties.setProperty(KAPTCHA_BORDER, "no");
         // 验证码文本生成器
-        properties.setProperty(KAPTCHA_TEXTPRODUCER_IMPL, "ltd.newbee.com.wayn.mall.config.TextCreator");
+        properties.setProperty(KAPTCHA_TEXTPRODUCER_IMPL, "com.wayn.mall.config.TextCreator");
         // 验证码文本字符颜色 默认为Color.BLACK
         properties.setProperty(KAPTCHA_TEXTPRODUCER_FONT_COLOR, "blue");
         // 验证码图片宽度 默认为200

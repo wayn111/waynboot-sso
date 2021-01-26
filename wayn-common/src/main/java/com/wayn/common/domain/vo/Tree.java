@@ -41,7 +41,7 @@ public class Tree<T> implements Serializable {
 	/**
 	 * 节点的子节点
 	 */
-	private List<Tree<T>> children = new ArrayList<Tree<T>>();
+	private List<Tree<T>> children = new ArrayList<>();
 
 	/**
 	 * 父ID

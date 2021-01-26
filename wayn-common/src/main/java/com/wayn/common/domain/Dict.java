@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.wayn.common.base.BusinessEntity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -17,6 +18,7 @@ import java.util.Date;
  * @author wayn
  * @since 2019-06-27
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @TableName("sys_dict")
 public class Dict extends BusinessEntity<Dict> {

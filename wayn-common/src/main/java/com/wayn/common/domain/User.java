@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.wayn.common.base.BusinessEntity;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * <p>
@@ -15,6 +16,7 @@ import lombok.Data;
  * @author wayn
  * @since 2019-04-13
  */
+@EqualsAndHashCode(callSuper = true)
 @ApiModel(value = "用户表")
 @Data
 @TableName("sys_user")

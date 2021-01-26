@@ -4,10 +4,8 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class BusinessEntity<T> extends BaseEntity<T> {
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1354549673923692016L;
+
 	private String remarks;
 
     public String getRemarks() {

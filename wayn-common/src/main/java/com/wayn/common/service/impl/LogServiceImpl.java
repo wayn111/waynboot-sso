@@ -25,7 +25,7 @@ import java.util.Map;
  */
 @Service
 public class LogServiceImpl extends ServiceImpl<LogDao, OperLog> implements LogService {
-    private static Map<String, String> map;
+    private static final Map<String, String> map;
 
     static {
         map = new HashMap<>();

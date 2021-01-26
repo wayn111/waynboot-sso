@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.wayn.common.base.BusinessEntity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
 
@@ -16,6 +17,7 @@ import java.math.BigDecimal;
  * @author wayn
  * @since 2019-04-13
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @TableName("sys_dept")
 public class Dept extends BusinessEntity<Dept> {

@@ -38,7 +38,7 @@ public class ParameterUtil {
 	 * @param baseEntity
 	 * @param <T>
 	 */
-	public static <T> void set(BaseEntity baseEntity) {
+	public static <T> void set(BaseEntity<T> baseEntity) {
 		Map<String, String[]> allParameter = ServletUtil.getAllParameter();
 		allParameter.forEach((String k, String[] v) -> {
 			if (StringUtils.containsIgnoreCase(k, "startTime")) {
@@ -113,7 +113,7 @@ public class ParameterUtil {
 		});
 	}
 
-	public static <T> QueryWrapper get() {
+	public static <T> QueryWrapper<T> get() {
 		return entityWrapperThreadLocal.get();
 	}
 

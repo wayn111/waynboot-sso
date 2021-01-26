@@ -5,6 +5,7 @@
     <resultMap id="BaseResultMap" type="com.wayn.common.domain.Dept">
         <id column="id" property="id"/>
         <result column="deptName" property="deptName"/>
-        <result column="deptDesc" property="deptDesc"/>
+        <result column="pid" property="pid"/>
+        <result column="sort" property="sort"/>
     </resultMap>
 </mapper>

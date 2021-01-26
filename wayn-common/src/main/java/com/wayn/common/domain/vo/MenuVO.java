@@ -2,6 +2,7 @@ package com.wayn.common.domain.vo;
 
 import com.wayn.common.base.BaseEntity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.List;
  * @author wayn
  * @since 2019-04-13
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class MenuVO extends BaseEntity<MenuVO> {
 
@@ -63,5 +65,5 @@ public class MenuVO extends BaseEntity<MenuVO> {
      */
     private String resource;
 
-    private List<MenuVO> children = new ArrayList<MenuVO>();
+    private List<MenuVO> children = new ArrayList<>();
 }

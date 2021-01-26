@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.wayn.common.base.BaseEntity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * <p>
@@ -14,6 +15,7 @@ import lombok.Data;
  * @author wayn
  * @since 2019-04-13
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @TableName("sys_oper_log")
 public class OperLog extends BaseEntity<OperLog> {

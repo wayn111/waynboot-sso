@@ -1,0 +1,143 @@
+### [corwd-admin](https://github.com/wayn111/crowd-admin)
+
+本人18年6月份毕业在武汉找了第一份`java`开发工作4500（面试时被hr压了500，武汉当时行情第一年5000）， 做的oa、库存管理相关系统，公司内系统架构主要是ssh，页面模板使用`jsp`😂，
+干了差不多大半年觉得提升有限，在19年3月份辞职，想着在家写一套自己的后台管理系统， 于是就写出了`crowd-adnin`的第一个版本。当时写这个项目真的是废寝忘食， 参考了网上很多的管理项目后，取百家之所长，写出来满满的成就感😁。
+
+##### 项目介绍
+
+crowd-admin是一个通用后台权限管理系统，集成了rbac权限管理、消息推送、邮件发送、任务调度、 代码生成、elfinder文件管理等常用功能，系统内各个业务按照模块划分，前台使用H+模板。
+是一个java新人易于上手，学习之后能够快速融入企业开发的指导项目
+
+##### 主要特性
+
+- 项目按功能模块化，提升开发，测试效率
+- 支持后台消息推送
+- 集成elfinder进行文件管理
+- 支持数据字典
+- 支持邮件发送，采用activeMQ异步解耦
+- 支持在线用户监控，登出等操作
+- 支持redis/ehcache切换使用
+- 支持ip2region本地化
+- 支持多数据源操作
+- 集成日志切面，方便日志记录
+- 前端js代码简洁，清晰，避免过度封装
+- 支持统一输出异常，避免繁琐的判断
+- [在线地址](http://wayn.xin/crowd)
+
+##### 实例截图
+
+__系统登陆__
+![系统登陆](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/827a5f8aa6f7495c8e6b572f1aa9e675~tplv-k3u1fbpfcp-watermark.image)
+__首页__
+![首页](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4a8ac6a1076640cbbd8af4e7b89d2090~tplv-k3u1fbpfcp-watermark.image)
+__用户管理__
+![用户管理](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3543ee82f51d4881b8b1a82933d29bd9~tplv-k3u1fbpfcp-watermark.image)
+__通知管理__
+![通知管理](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d9ec2cc835b24987af2d836e2a043a39~tplv-k3u1fbpfcp-watermark.image)
+__文件管理__
+![文件管理](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9804b2b72ea142f8ab78ec5982fa55cb~tplv-k3u1fbpfcp-watermark.image)
+
+------
+
+### [waynboot-sso](https://github.com/wayn111/waynboot-sso)
+
+本人在19年初辞职后找的第二份工作一份外包工作（当时外包人事开的7000）996， 现在想想996应该要10000😢， 外包项目结束辞职后在家写的一个单点登录项目， 因为在甲方公司的子项目中用到了单点登录技术， 就想自己写出来一套，
+于是写了`waynboot-sso`项目， 把`crwod-admin`项目并用`springboot`重写了一遍作用子模块集成了进来， 当时写这个sso单点登陆还花了两张登陆登出的流程图，贴在下面见笑了😂
+
+##### 项目介绍
+
+基于SpringBoot，Shiro，Redis，Mybatis-Plus，SSO的多模块系统，包含了SSO单点登陆， 通用后台管理，新蜂商城，每日一文等多个模块，支持Shiro与SSO模块的集成，易于上手，学习，二次开发。
+
+##### 主要特性
+
+- 项目按系统模块化，提升开发，测试效率
+- ssoserver为SSO模块，支持单点登录登出
+- admin模块支持Shiro + SSO使用
+- 新蜂商城包含前台和后端，后台系统支持SSO使用
+- 使用hessian作为各系统间rpc通信
+- 使用Mybatis-Plus作为数据层框架，代码简介高效
+- 页面模板使用thymeleaf，配置灵活
+- js代码简洁，清晰，避免过度封装
+- 支持统一输出异常，避免繁琐的判断
+
+##### 内置模块
+
+1. wayn-admin 后台权限管理系统
+2. wayn-cmomon 后台权限系统的通用类聚集模块
+3. wayn-framework 后台权限系统的核心配置模块，包含shiro，数据源等配置
+4. wayn-mall newbee-mall商城系统，包含前后端系统
+5. wayn-others 集成framework的爬虫模块，包含每日一文
+6. wayn-ssocore sso单点登录的核心模块
+7. wayn-ssoserver sso单点登录系统，供其他系统集成使用
+
+##### 单点登陆流程
+
+![sso登陆](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/08fb9b643e444414b6fefe7b60f99a6e~tplv-k3u1fbpfcp-watermark.image)
+![sso登出](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/db0aaeaf124f4b3089799a46245aae26~tplv-k3u1fbpfcp-watermark.image)
+
+------
+
+### [newbee-mall](https://github.com/wayn111/newbee-mall)
+
+题主20年春节之后在家赋闲写完了waynboot-sso项目心血来潮想着写一个商城系统😎， 在发现newbee-mall项目后，就在此基础上写了一个商城项目，添加了秒杀专区和优惠卷使用，
+并在最近完善了秒杀专区，支持万人秒杀。说实话很感谢这个项目， 这个项目是题主github仓库第一个到达60star的项目😆
+
+##### 项目介绍
+
+1. 后台管理模块添加了优惠卷管理、秒杀管理，统计分析
+2. 前台添加了秒杀专区，可以购买秒杀商品
+3. 前台添加了优惠卷领取页面，再订单结算页面可以选择优惠卷使用
+4. 支付时添加了支付宝沙箱支付
+5. 本项目秉持原作者简单易用的原则，代码书写清晰，注释完整，便于新人理解，快速上手
+5. [在线地址](http://wayn.xin/mall)
+
+##### 2021年1月14日 秒杀接口升级
+
+本次升级主要在原有秒杀功能的基础上进行了完善，秒杀优化如下：
+
+1. 秒杀页面静态化
+2. 添加了秒杀接口限流，基于springAOP实现
+3. 添加了秒杀接口防止重复提交，基于spring拦截器实现
+4. 使用令牌桶算法过滤用户请求
+5. 使用redis-set数据结构判断用户是否买过秒杀商品
+6. 使用redis配合lua脚本进行原子自减，判断商品缓存库存是否大于0
+7. 获取商品缓存，判断秒杀商品是否再有效期内
+8. 执行存储过程（减库存 + 记录购买行为）
+9. 使用redis-set数据结构记录购买过的用户
+10. 返回用户秒杀成功VO
+11. 下单后启用秒杀订单5分钟未支付超期任务
+12. 订单5分钟内未支付则自动取消订单并回退库存
+
+##### 秒杀截图
+
+秒杀专区为用户展示了后台设置的秒杀商品，在秒杀有效期内可以进行商品秒杀操作. 秒杀接口使用了接口限流、Redis以及储存过程提高秒杀操作的tps
+
+![](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e712d152fec14cc2ab2ba49a7fa8ffaa~tplv-k3u1fbpfcp-watermark.image)
+![](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6cbe7bc5834947f888f3264de5b377c7~tplv-k3u1fbpfcp-watermark.image)
+![](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6dc788dffb534669888aff9791498be0~tplv-k3u1fbpfcp-watermark.image)
+![](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c3159a78f6204176822baa2823b7005e~tplv-k3u1fbpfcp-watermark.image)
+
+##### 感谢
+
+[newbee-mall](https://github.com/newbee-ltd/newbee-mall) 项目原作者十三提供的基础项目支持
+
+------
+
+### 2020-2021
+
+众所周知2020年由于特殊原因题主没有外出打工于是在家附近找了个公司上班，这家公司是php技术栈搞互联网的， （题主做梦也没想到我老家这十八线城市还有一家搞互联网的公司） 当时题主想了今年不出去了，
+于是在家自学了2个星期php之后就去家附近的公司上班了（其实是家里这边没有搞技术的其他公司了） ， 工资给的4500，工资又给干回去了 😥， 干了快一年发现php干快速开发迭代确实比java快很多😂（此处求javaer放过），
+题主就这样在这一年一边干php一边继续完善上述3个项目
+
+------
+
+### 2021
+
+一眨眼2021年农历春节就要到了，题主也不知道年后是该继续在家干php（干了大半年工资涨到6000了） 还是去大城市干java，在家干确实是真的很舒服，而且题主今年在家附近找到了女朋友，女朋友也很爱我， 真是纠结😂
+
+------
+
+### 结尾
+
+其实说了这么多，还是希望大家能给题主点个star😘，如果这些项目对你们又帮助的话。 希望新的一年新冠疫情能快点结束，大家能早日回归正常生活
+

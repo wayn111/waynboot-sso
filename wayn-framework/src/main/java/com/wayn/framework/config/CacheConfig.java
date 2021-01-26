@@ -79,7 +79,7 @@ public class CacheConfig extends CachingConfigurerSupport {
         return jackson2JsonRedisSerializer;
 
         // 设置序列化 两种方式区别不大
-//        return new JdkSerializationRedisSerializer();
+       // return new JdkSerializationRedisSerializer();
     }
 
     @Bean
@@ -98,14 +98,14 @@ public class CacheConfig extends CachingConfigurerSupport {
 
     private RedisCacheConfiguration defaultCacheConfig() {
         return RedisCacheConfiguration.defaultCacheConfig()
-                .prefixKeysWith("wayn")
+                .prefixCacheNameWith("wayn")
                 .entryTtl(Duration.ofSeconds(expire * 2))
                 .disableCachingNullValues();
     }
 
     private RedisCacheConfiguration defaultCacheConfig1() {
         return RedisCacheConfiguration.defaultCacheConfig()
-                .prefixKeysWith("wayn")
+                .prefixCacheNameWith("wayn")
                 .entryTtl(Duration.ofSeconds(expire))
                 .disableCachingNullValues();
     }

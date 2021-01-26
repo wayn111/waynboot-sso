@@ -1,26 +1,34 @@
 package com.wayn.mall.controller.admin;
 
 import com.wayn.mall.controller.base.BaseController;
-import com.wayn.mall.core.entity.AdminUser;
 import com.wayn.mall.core.service.AdminUserService;
-import com.wayn.mall.exception.BusinessException;
-import com.wayn.mall.util.security.Md5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletRequest;
-
+/**
+ * 接入sso-server，修改用户信息在admin系统中修改
+ */
 @Controller
 @RequestMapping("admin/profile")
 public class ProfileManagerController extends BaseController {
 
     private static final String PREFIX = "admin/profile";
 
+    @Value("${wayn.waynAdminUrl}")
+    private String waynAdminUrl;
+
     @Autowired
     private AdminUserService adminUserService;
 
     @GetMapping
+    public String profile() {
+        return redirectTo(waynAdminUrl);
+    }
+
+    /*@GetMapping
     public String profile(HttpServletRequest request) {
         Integer loginUserId = (int) request.getSession().getAttribute("loginUserId");
         AdminUser adminUser = adminUserService.getById(loginUserId);
@@ -31,9 +39,9 @@ public class ProfileManagerController extends BaseController {
         request.setAttribute("loginUserName", adminUser.getLoginUserName());
         request.setAttribute("nickName", adminUser.getNickName());
         return PREFIX + "/profile";
-    }
+    }*/
 
-    @PostMapping("/password")
+    /*@PostMapping("/password")
     @ResponseBody
     public String passwordUpdate(HttpServletRequest request,
                                  @RequestParam("originalPassword") String originalPassword,
@@ -79,5 +87,5 @@ public class ProfileManagerController extends BaseController {
         } else {
             return "修改失败";
         }
-    }
+    }*/
 }

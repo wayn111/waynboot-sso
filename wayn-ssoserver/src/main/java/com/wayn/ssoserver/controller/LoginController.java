@@ -6,6 +6,7 @@ import com.wayn.ssocore.service.UserRpcService;
 import com.wayn.ssoserver.manager.TokenManager;
 import com.wayn.ssoserver.util.R;
 import com.wayn.ssoserver.util.ShiroUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ import java.net.URLDecoder;
 import java.util.Objects;
 
 
+@Slf4j
 @Controller
 public class LoginController {
 
@@ -31,7 +33,7 @@ public class LoginController {
     private UserRpcService userRpcService;
 
     @GetMapping("login")
-    public String login(@RequestParam String backUrl, HttpServletRequest request) {
+    public String login(@RequestParam(required = false) String backUrl, HttpServletRequest request) {
         String token = getTokenByCookie(request);
         if (!StringUtils.isEmpty(token) && tokenManager.validateAndRefresh(token)) {
             return "redirect:" + backUrl + "?token=" + token;
@@ -55,7 +57,13 @@ public class LoginController {
             return R.fail("验证码错误");
         }
         String token;
-        SsoUser dbUser = userRpcService.loginValidate(userName, ShiroUtil.md5encrypt(password, userName));
+        SsoUser dbUser;
+        try {
+            dbUser = userRpcService.loginValidate(userName, ShiroUtil.md5encrypt(password, userName));
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return R.fail("服务器内部异常");
+        }
         if (Objects.nonNull(dbUser)) {
             dbUser.setPassword(password);
             token = request.getContextPath().replaceAll("/", "") + ":" + tokenManager.generateToken();

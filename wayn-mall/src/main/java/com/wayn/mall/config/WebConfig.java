@@ -1,6 +1,5 @@
 package com.wayn.mall.config;
 
-import com.wayn.mall.intercepter.AdminLoginInterceptor;
 import com.wayn.mall.intercepter.MallLoginValidateIntercepter;
 import com.wayn.mall.intercepter.MallShopCartNumberInterceptor;
 import com.wayn.mall.intercepter.RepeatSubmitInterceptor;
@@ -28,6 +27,9 @@ public class WebConfig implements WebMvcConfigurer {
     @Value("${wayn.ssoServerUrl}")
     private String ssoServerUrl;
 
+    @Value("${wayn.currentServerUrl}")
+    private String currentServerUrl;
+
     @Value("${wayn.xssFilter.excludeUrls}")
     private String excludeUrls;
 
@@ -53,7 +55,9 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addRedirectViewController("/", "/index");
+        registry.addRedirectViewController("/admin/logout", ssoServerUrl + "/logout?backUrl=" + currentServerUrl);
     }
+
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -98,11 +102,11 @@ public class WebConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/**/*.js");
 
         // 添加一个拦截器，拦截以/admin为前缀的url路径（后台登陆拦截）
-        registry.addInterceptor(new AdminLoginInterceptor())
+        /*registry.addInterceptor(new AdminLoginInterceptor())
                 .addPathPatterns("/admin/**")
                 .excludePathPatterns("/admin/login")
                 .excludePathPatterns("/admin/dist/**")
-                .excludePathPatterns("/admin/plugins/**");
+                .excludePathPatterns("/admin/plugins/**");*/
 
         registry.addInterceptor(repeatSubmitInterceptor).addPathPatterns("/**");
     }

@@ -39,23 +39,23 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
-                    <i class="fa fa-user">&nbsp;&nbsp;[[${session.loginUser}]]</i>
+                    <i class="fa fa-user">&nbsp;&nbsp;[[${session.adminUser.user.userName }]]</i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                     <div class="dropdown-divider"></div>
                     <a href="#" class="dropdown-item">
                         <i class="fa fa-user-o mr-2"></i> 姓名
-                        <span class="float-right text-muted text-sm">十三 / 13</span>
+                        <span class="float-right text-muted text-sm">[[${session.adminUser.user.userName}]]</span>
                     </a>
                     <div class="dropdown-divider"></div>
                     <a href="#" class="dropdown-item">
-                        <i class="fa fa-user-secret mr-2"></i> 身份
-                        <span class="float-right text-muted text-sm">Java开发工程师</span>
+                        <i class="fa fa-user-secret mr-2"></i> 部门
+                        <span class="float-right text-muted text-sm">[[${session.adminUser.user.deptName}]]</span>
                     </a>
                     <div class="dropdown-divider"></div>
                     <a href="#" class="dropdown-item">
                         <i class="fa fa-address-card mr-2"></i> 邮箱
-                        <span class="float-right text-muted text-sm">2449207463@qq.com</span>
+                        <span class="float-right text-muted text-sm">[[${session.adminUser.user.email}]]</span>
                     </a>
                 </div>
             </li>

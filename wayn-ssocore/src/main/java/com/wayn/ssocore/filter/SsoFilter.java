@@ -18,7 +18,9 @@ import java.net.MalformedURLException;
 import java.net.URLEncoder;
 import java.util.Objects;
 
-
+/**
+ * sso系统接入过滤器
+ */
 @Data
 public class SsoFilter implements Filter {
 
@@ -115,7 +117,7 @@ public class SsoFilter implements Filter {
     }
 
     public String getBackUrl(HttpServletRequest req) {
-        return new StringBuilder().append(req.getRequestURL())
-                .append(req.getQueryString() == null ? "" : "?" + req.getQueryString()).toString();
+        return req.getRequestURL() +
+                (req.getQueryString() == null ? "" : "?" + req.getQueryString());
     }
 }

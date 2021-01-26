@@ -1,22 +1,16 @@
 package com.wayn.mall.controller.admin;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.wayn.mall.constant.Constants;
 import com.wayn.mall.controller.base.BaseController;
-import com.wayn.mall.core.entity.AdminUser;
 import com.wayn.mall.core.service.AdminUserService;
-import com.wayn.mall.util.security.Md5Utils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
+/**
+ * 接入sso-server此登陆类登陆相关方法不在需要
+ */
 @Controller
 @RequestMapping("admin")
 public class AdminIndexController extends BaseController {
@@ -29,7 +23,7 @@ public class AdminIndexController extends BaseController {
         return "admin/index";
     }
 
-    @RequestMapping("login")
+    /*@RequestMapping("login")
     public String login() {
         return "admin/login";
     }
@@ -73,6 +67,6 @@ public class AdminIndexController extends BaseController {
         request.getSession().removeAttribute("loginUser");
         request.getSession().removeAttribute("errorMsg");
         return "admin/login";
-    }
+    }*/
 
 }

@@ -1,4 +1,7 @@
 server:
+  compression:
+    enabled: true
+    min-response-size: 1KB
   port: 80
   servlet:
     context-path: /wayn
@@ -6,9 +9,10 @@ server:
     # tomcat的URI编码
     uri-encoding: UTF-8
     # tomcat最大线程数，默认为200
-    max-threads: 300
     # Tomcat启动初始化的线程数，默认值25
-    min-spare-threads: 30
+    threads:
+      max: 300
+      min-spare: 30
 
 # 日志配置
 logging:
@@ -61,6 +65,7 @@ wayn:
   logHandlerCount: 3
   ssoServerUrl: http://127.0.0.1:82/ssoserver
   currentServerUrl: http://127.0.0.1/wayn
+  mallUrl: http://127.0.0.1:84/mall
 
 
 

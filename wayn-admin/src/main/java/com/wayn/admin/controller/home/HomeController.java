@@ -5,6 +5,7 @@ import com.wayn.common.domain.Menu;
 import com.wayn.common.service.MenuService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,8 @@ public class HomeController extends BaseController {
     @Autowired
     private MenuService menuService;
 
+    @Value("${wayn.mallUrl}")
+    private String mallUrl;
 
     @RequiresPermissions("sys:user:user")
     @GetMapping
@@ -34,5 +37,10 @@ public class HomeController extends BaseController {
     @GetMapping("/mainIndex")
     public String mainIndex(Model model) {
         return MAIN_PREFIX + "/main";
+    }
+
+    @GetMapping("/newBeeMall")
+    public String newBeeMall() {
+        return redirectTo(mallUrl);
     }
 }

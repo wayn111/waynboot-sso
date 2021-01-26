@@ -2,6 +2,7 @@ package com.wayn.framework.rpc.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.wayn.common.domain.User;
+import com.wayn.common.service.DeptService;
 import com.wayn.common.service.UserService;
 import com.wayn.common.util.shiro.util.ShiroUtil;
 import com.wayn.ssocore.entity.SsoUser;
@@ -18,6 +19,9 @@ public class UserRpcServiceImpl implements UserRpcService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private DeptService deptService;
+
     @Override
     public SsoUser loginValidate(String username, String password) {
         User user = userService.getOne(new QueryWrapper<User>().eq("userName", username).eq("password", password));
@@ -27,6 +31,10 @@ public class UserRpcServiceImpl implements UserRpcService {
         SsoUser ssoUser = new SsoUser();
         ssoUser.setId(user.getId());
         ssoUser.setUserName(user.getUserName());
+        ssoUser.setUserImg(user.getUserImg());
+        ssoUser.setEmail(user.getEmail());
+        ssoUser.setPhone(user.getPhone());
+        ssoUser.setDeptName(deptService.getById(user.getDeptId()).getDeptName());
         return ssoUser;
     }
 

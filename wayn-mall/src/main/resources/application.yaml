@@ -6,15 +6,15 @@ server:
     # tomcat的URI编码
     uri-encoding: UTF-8
     # tomcat最大线程数，默认为200
-    max-threads: 300
     # Tomcat启动初始化的线程数，默认值25
-    min-spare-threads: 30
-
+    threads:
+      max: 300
+      min-spare: 30
 
 # 日志配置
 logging:
   level:
-    com.wayn: debug
+    com.wayn.mall: debug
     org.springframework: info
     com.baomidou: info
 
@@ -53,8 +53,9 @@ mybatis-plus:
 
 # wayn配置
 wayn:
-  uploadDir: E:/wayn/upload
+  uploadDir: D:/upload
   ssoServerUrl: http://127.0.0.1:82/ssoserver
   waynAdminUrl: http://127.0.0.1/wayn
+  currentServerUrl: http://127.0.0.1:84/mall
   xssFilter:
     excludeUrls: /admin/dist/*,/admin/plugins/*

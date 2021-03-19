@@ -60,7 +60,7 @@
 ![sso登陆](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/08fb9b643e444414b6fefe7b60f99a6e~tplv-k3u1fbpfcp-watermark.image)
 ![sso登出](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/db0aaeaf124f4b3089799a46245aae26~tplv-k3u1fbpfcp-watermark.image)
 
-### 获取源码
+### 获取源码 
 
 - [waynboot github](https://github.com/wayn111/waynboot-sso)
 - [waynboot gitee](https://gitee.com/wayn111/waynboot-sso)

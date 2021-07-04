@@ -41,22 +41,9 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: false
 
-# 配置
-shiro:
-  loginUrl: http://127.0.0.1:82/ssoserver/login?backUrl=http://127.0.0.1:83/others/login
-  successUrl: /others/article
-  unauthorizedUrl: /error/unauth
-  retryCount: 5
-  algorithmName: MD5
-  iterations: 1024
-  session-timeout: 1800
-
 # wayn配置
 wayn:
   uploadDir: E:/wayn/upload
-  singeUserAuth: false
-  singeKickoutBefore: true
-  logHandlerCount: 3
   ssoServerUrl: http://127.0.0.1:82/ssoserver
   currentServerUrl: http://127.0.0.1:83/others
   xssFilter:

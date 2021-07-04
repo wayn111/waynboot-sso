@@ -11,7 +11,10 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-public class TokenValidateFilter extends AccessControlFilter {
+/**
+ * SSO与Shiro整合核心类
+ */
+public class SsoTokenValidateFilter extends AccessControlFilter {
 
     private AuthcationRpcService authcationRpcService;
 
@@ -23,9 +26,7 @@ public class TokenValidateFilter extends AccessControlFilter {
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
         String token = HttpUtil.getTokenByCookie((HttpServletRequest) request);
         if (StringUtils.isNotEmpty(token)) {
-            if (!authcationRpcService.validateAndRefresh(token)) {
-                return false;
-            }
+            return authcationRpcService.validateAndRefresh(token);
         }
         return true;
     }

@@ -6,6 +6,7 @@ import com.wayn.ssocore.entity.SsoUser;
 import com.wayn.ssocore.service.AuthcationRpcService;
 import lombok.Data;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.StringUtils;
 
@@ -22,6 +23,7 @@ import java.util.Objects;
  * sso系统接入过滤器
  */
 @Data
+@Slf4j
 public class SsoFilter implements Filter {
 
     private static final String ADMIN_USER = "adminUser";
@@ -71,16 +73,16 @@ public class SsoFilter implements Filter {
             return;
         }
         HttpSession session = req.getSession();
-        SessionUser sessionUser = Objects.isNull(session) ? null : (SessionUser) session.getAttribute(ADMIN_USER);
-        String token = (sessionUser == null) ? null : sessionUser.getToken();
+        SessionUser existsUser = Objects.isNull(session) ? null : (SessionUser) session.getAttribute(ADMIN_USER);
+        String token = (existsUser == null) ? null : existsUser.getToken();
         if (StringUtils.isEmpty(token)) {
             // 从parameter和cookie中查询token参数
             if (!StringUtils.isEmpty(token = req.getParameter("token"))) {
                 SsoUser user = authcationRpcService.findUserByToken(token);
-                SessionUser sessionUser1 = new SessionUser();
-                sessionUser1.setToken(token);
-                sessionUser1.setUser(user);
-                session.setAttribute(ADMIN_USER, sessionUser1);
+                SessionUser sessionUser = new SessionUser();
+                sessionUser.setToken(token);
+                sessionUser.setUser(user);
+                session.setAttribute(ADMIN_USER, sessionUser);
                 String backUrl = getBackUrl(req);
                 backUrl = backUrl.substring(0, backUrl.indexOf("token") - 1);
                 // 重跳转当前url，去除token参数

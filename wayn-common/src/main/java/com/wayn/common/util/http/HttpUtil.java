@@ -309,7 +309,7 @@ public class HttpUtil {
         Cookie[] cookies = request.getCookies();
         if (Objects.nonNull(cookies)) {
             for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("token")) {
+                if ("token".equals(cookie.getName())) {
                     value = cookie.getValue();
                     break;
                 }

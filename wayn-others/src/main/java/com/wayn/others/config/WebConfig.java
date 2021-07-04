@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.DispatcherType;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 
 @Configuration
@@ -23,15 +23,15 @@ public class WebConfig implements WebMvcConfigurer {
     private String excludeUrls;
 
     @Bean
-    public FilterRegistrationBean filterRegistrationBean() {
-        FilterRegistrationBean bean = new FilterRegistrationBean();
+    public FilterRegistrationBean<SsoFilter> filterRegistrationBean() {
+        FilterRegistrationBean<SsoFilter> bean = new FilterRegistrationBean<>();
         SsoFilter ssoFilter = new SsoFilter();
         ssoFilter.setSsoServerUrl(ssoServerUrl);
         bean.setFilter(ssoFilter);
         bean.setDispatcherTypes(DispatcherType.REQUEST);
         bean.setName("ssoFilter");
-        bean.setUrlPatterns(Arrays.asList("/*"));
-        LinkedHashMap<String, Object> linkedHashMap = new LinkedHashMap<>();
+        bean.setUrlPatterns(Collections.singletonList("/*"));
+        LinkedHashMap<String, String> linkedHashMap = new LinkedHashMap<>();
         linkedHashMap.put("excludeUrls", excludeUrls);
         bean.setInitParameters(linkedHashMap);
         return bean;

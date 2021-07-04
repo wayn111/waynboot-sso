@@ -7,8 +7,8 @@ import com.wayn.framework.redis.RedisOpts;
 import com.wayn.framework.shiro.cache.RedisCacheManager;
 import com.wayn.framework.shiro.credentials.MyCredentialsMatcher;
 import com.wayn.framework.shiro.filter.OnlineSessionFilter;
+import com.wayn.framework.shiro.filter.SsoTokenValidateFilter;
 import com.wayn.framework.shiro.filter.TokenLoginFilter;
-import com.wayn.framework.shiro.filter.TokenValidateFilter;
 import com.wayn.framework.shiro.realm.SsoRealm;
 import com.wayn.framework.shiro.session.OnlineSessionFactory;
 import com.wayn.framework.shiro.session.RedisSessionDAO;
@@ -88,10 +88,10 @@ public class ShiroConfig {
         Map<String, Filter> filters = new LinkedHashMap<>();
         filters.put("tokenLogin", tokenLoginFilter());
         filters.put("logout", logoutFilter());
-        filters.put("tokenValidate", tokenValidateFilter());
+        filters.put("tokenValidate", ssoTokenValidateFilter());
         filters.put("onlineSession", onlineSessionFilter());
         shiroFilterFactoryBean.setFilters(filters);
-        // 定义拦过滤器链
+        // 定义过滤器链
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         filterChainDefinitionMap.put("/favicon.ico", "anon");
         filterChainDefinitionMap.put("/upload/**", "anon");
@@ -129,15 +129,15 @@ public class ShiroConfig {
         return tokenValidateFilter;
     }
 
-    public TokenValidateFilter tokenValidateFilter() {
-        TokenValidateFilter tokenValidateFilter = new TokenValidateFilter();
+    public SsoTokenValidateFilter ssoTokenValidateFilter() {
+        SsoTokenValidateFilter tokenValidateFilter = new SsoTokenValidateFilter();
         try {
             AuthcationRpcService authcationRpcService = (AuthcationRpcService) new HessianProxyFactory().create(AuthcationRpcService.class,
                     ssoServerUrl + "/rpc/authcationRpcService");
             tokenValidateFilter.setAuthcationRpcService(authcationRpcService);
         } catch (MalformedURLException e) {
             e.printStackTrace();
-            throw new RuntimeException("tokenValidateFilter:authcationRpcService初始化失败！");
+            throw new RuntimeException("SsoTokenValidateFilter:authcationRpcService初始化失败！");
         }
         return tokenValidateFilter;
     }
@@ -235,7 +235,7 @@ public class ShiroConfig {
         // 设置sessionValidation任务执行周期时间
         sessionManager.setSessionValidationInterval(15 * 60 * 1000);
         // 设置全局session超时时间
-        sessionManager.setGlobalSessionTimeout(sessionTimeout * 1000);
+        sessionManager.setGlobalSessionTimeout(sessionTimeout * 1000L);
         // 设置sessionDao实现
         sessionManager.setSessionDAO(sessionDAO());
         sessionManager.setSessionFactory(sessionFactory());

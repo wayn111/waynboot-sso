@@ -49,7 +49,7 @@ spring:
                     config:
                         multi-statement-allow: true
     redis:
-        host: localhost
+        host: wayn.ltd
         port: 1688
         timeout: 5000
         password: admin@@123456

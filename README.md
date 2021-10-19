@@ -27,7 +27,7 @@
     - Rpc: hessian
 2. 前端
     - 模板选型：Thymeleaf
-    - JS框架：jQuery，vew
+    - JS框架：jQuery，vue
     - 数据表格：bootstrapTable，jqGrid
     - 弹出层：layer，bootstrap-modal
     - 通知消息：Toastr
@@ -35,7 +35,7 @@
 3. 开发平台
     - JDK版本：1.8+
     - Maven：3.5+
-    - 数据库：mysql5+
+    - 数据库：mysql5.7+
     - ide：Eclipse/Idea
 
 ### 使用教程

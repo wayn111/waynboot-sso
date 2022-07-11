@@ -12,7 +12,6 @@
 	<artifactId>wayn-common</artifactId>
 
 	<name>wayn-common</name>
-	<!-- FIXME change it to the project's website -->
 	<url>http://www.example.com</url>
 
 	<properties>
@@ -74,7 +73,7 @@
 		<dependency>
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
-		</dependency>
+        </dependency>
 
 		<!-- ip转化地址 -->
 		<dependency>

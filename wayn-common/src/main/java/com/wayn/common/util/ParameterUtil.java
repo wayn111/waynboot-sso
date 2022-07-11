@@ -12,9 +12,9 @@ import java.util.Map;
 /**
  * 公用查询参数帮助类，例如时间查询。。。
  */
-public class ParameterUtil {
+public class ParameterUtil<T> {
 	private static final String BASE_ENTITY = "BaseEntity";
-	private static ThreadLocal<QueryWrapper> entityWrapperThreadLocal = new ThreadLocal<>();
+	private static final ThreadLocal<QueryWrapper> entityWrapperThreadLocal = new ThreadLocal<>();
 
 	/**
 	 * 设置wrapper类得通用查询属性

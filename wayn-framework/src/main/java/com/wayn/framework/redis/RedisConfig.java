@@ -12,6 +12,8 @@ import org.springframework.context.annotation.Configuration;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
+import java.time.Duration;
+
 /**
  * redis配置
  */

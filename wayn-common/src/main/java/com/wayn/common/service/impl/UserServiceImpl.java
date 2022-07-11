@@ -60,14 +60,14 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
     @Override
     public boolean exit(Map<String, Object> params) {
         String userName = params.get("userName").toString();
-        //如果是修改用户，用户名未改变则通过校验
+        // 如果是修改用户，用户名未改变则通过校验
         if (params.get("id") != null) {
             String id = params.get("id").toString();
             if (userDao.selectById(id).getUserName().equals(userName)) {
                 return false;
             }
         }
-        Integer count = userDao.selectCount(new QueryWrapper<User>().eq("userName", userName));
+        long count = userDao.selectCount(new QueryWrapper<User>().eq("userName", userName));
         return count > 0;
     }
 

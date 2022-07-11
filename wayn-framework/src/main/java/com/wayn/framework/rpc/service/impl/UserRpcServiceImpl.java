@@ -15,7 +15,6 @@ import java.util.Objects;
 @Service
 public class UserRpcServiceImpl implements UserRpcService {
 
-
     @Autowired
     private UserService userService;
 

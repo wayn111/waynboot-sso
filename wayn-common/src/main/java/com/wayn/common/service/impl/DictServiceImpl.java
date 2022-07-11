@@ -52,14 +52,14 @@ public class DictServiceImpl extends ServiceImpl<DictDao, Dict> implements DictS
 
     @Override
     public boolean exists(Dict dict) {
-        //如果是修改字典数据，数据值未改变则通过校验
+        // 如果是修改字典数据，数据值未改变则通过校验
         if (dict.getId() != null) {
             String value = dict.getValue();
             if (dictDao.selectById(dict.getId()).equals(value)) {
                 return false;
             }
         }
-        int count = dictDao.selectCount(new QueryWrapper<Dict>()
+        long count = dictDao.selectCount(new QueryWrapper<Dict>()
                 .eq("value", dict.getValue())
                 .eq("type", dict.getType())
                 .eq("dictType", dict.getDictType())

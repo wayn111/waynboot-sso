@@ -29,9 +29,9 @@ public class ArticleController {
         httpHeaders.set("accept", "*/*");
         httpHeaders.set("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
         httpHeaders.set("connection", "Keep-Alive");
-        HttpEntity httpEntity = new HttpEntity(null, httpHeaders);
+        HttpEntity<String> httpEntity = new HttpEntity(null, httpHeaders);
         ResponseEntity<String> exchange = restTemplate.exchange("https://interface.meiriyiwen.com/article/day", HttpMethod.GET, httpEntity, String.class);
-        System.out.println(exchange.getBody());
+        log.info(exchange.getBody());
     }
 
     @RequestMapping("article")
@@ -48,7 +48,7 @@ public class ArticleController {
         httpHeaders.set("accept", "*/*");
         httpHeaders.set("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
         httpHeaders.set("connection", "Keep-Alive");
-        HttpEntity httpEntity = new HttpEntity(null, httpHeaders);
+        HttpEntity<String> httpEntity = new HttpEntity(null, httpHeaders);
         try {
             if (StringUtils.isNotBlank(date)) {
                 param = "dev=1&date=" + date;

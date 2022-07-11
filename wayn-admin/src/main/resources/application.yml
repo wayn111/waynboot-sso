@@ -14,13 +14,6 @@ server:
       max: 300
       min-spare: 30
 
-# 日志配置
-logging:
-  level:
-    com.wayn: debug
-    org.springframework: info
-    com.baomidou: info
-
 # spring
 spring:
   thymeleaf:
